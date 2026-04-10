@@ -345,10 +345,16 @@ function Merge-CapabilityHistory {
     [Parameter(Mandatory = $true)]
     [hashtable]$History,
     [Parameter(Mandatory = $true)]
-    [string]$Version
+    [string]$Version,
+    [string[]]$NewCapabilityIds = @()
   )
 
   $merged = @{}
+  $newIdSet = @{}
+  foreach ($id in $NewCapabilityIds) {
+    $newIdSet[$id] = $true
+  }
+
   foreach ($key in $History.Keys) {
     $merged[$key] = $History[$key]
   }
@@ -373,7 +379,7 @@ function Merge-CapabilityHistory {
     $existing.kind = $item.kind
     $existing.owner = $item.owner
     $existing.ownerSource = $item.ownerSource
-    if (-not $existing.introducedIn) {
+    if ($newIdSet.ContainsKey($item.id) -or -not $existing.introducedIn) {
       $existing.introducedIn = $Version
     }
   }
@@ -542,6 +548,64 @@ function Format-CapabilityLine {
   $badge = Render-CapabilityBadge -IsNew $Capability.isNew
   $suffix = if ($badge) { " $badge" } else { '' }
   return ('- `[{0}]` {1}{2}: {3} (`introduced: {4}`)' -f $Capability.owner, $Capability.label, $suffix, $Capability.summary, $Capability.introducedIn)
+}
+
+function New-VersionMatrixTable {
+  param(
+    [Parameter(Mandatory = $true)]
+    [hashtable]$Manifest,
+    [Parameter(Mandatory = $true)]
+    [ValidateSet('zh','en')]
+    [string]$Language
+  )
+
+  if ($Language -eq 'zh') {
+    $lines = @(
+      '| 组件 | 版本 |',
+      '| --- | --- |'
+    )
+  } else {
+    $lines = @(
+      '| Component | Version |',
+      '| --- | --- |'
+    )
+  }
+
+  $lines += @(
+    "| repo | $($Manifest.repoVersion) |",
+    "| rules | $($Manifest.rulesVersion) |",
+    "| mcp | $($Manifest.mcpVersion) |",
+    "| plugins | $($Manifest.pluginsVersion) |",
+    "| skills | $($Manifest.skillsVersion) |"
+  )
+
+  return ($lines -join [Environment]::NewLine)
+}
+
+function Update-ReadmeReleaseMetadata {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$Text,
+    [Parameter(Mandatory = $true)]
+    [hashtable]$Manifest,
+    [Parameter(Mandatory = $true)]
+    [ValidateSet('zh','en')]
+    [string]$Language
+  )
+
+  $updated = $Text
+  $updated = $updated -replace '\\\.\\scripts\\release\.ps1', '.\scripts\release.ps1'
+  $updated = $updated -replace '(?<=\.\\scripts\\sync\.ps1 -TargetVersion )v\d{4}\.\d{2}\.\d{2}\.\d+', $Manifest.repoVersion
+
+  if ($Language -eq 'zh') {
+    $heading = '## 当前版本映射'
+  } else {
+    $heading = '## Current Version Matrix'
+  }
+
+  $pattern = '(?ms)(' + [regex]::Escape($heading) + '\s*\r?\n\r?\n).*?(?=\r?\n## |\z)'
+  $replacement = '$1' + (New-VersionMatrixTable -Manifest $Manifest -Language $Language)
+  return [regex]::Replace($updated, $pattern, $replacement, 1)
 }
 
 function New-ReadmeCapabilitySection {

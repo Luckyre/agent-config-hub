@@ -323,7 +323,7 @@ $historyPath = Join-Path $repoRoot 'manifests/integration-history.json'
 $existingHistory = Read-CapabilityHistory -Path $historyPath
 $capabilityDiff = Compare-CapabilitySets -Current $currentCapabilityRecords -Previous $previousCapabilityRecords
 $newCapabilities = @($capabilityDiff.New)
-$mergedHistory = Merge-CapabilityHistory -Current $currentCapabilityRecords -History $existingHistory -Version $Version
+$mergedHistory = Merge-CapabilityHistory -Current $currentCapabilityRecords -History $existingHistory -Version $Version -NewCapabilityIds ($newCapabilities | ForEach-Object { $_.id })
 Write-CapabilityHistory -Path $historyPath -History $mergedHistory
 
 $inventory = Get-CapabilityInventory -McpServers $mcpServers -Plugins $plugins -SkillsCatalog $skillsCatalog -History $mergedHistory -NewCapabilities $newCapabilities
@@ -336,12 +336,14 @@ Write-IntegrationCatalog -Path $catalogPath -Manifest $manifest -McpServers $mcp
 
 $readmePath = Join-Path $repoRoot 'README.md'
 $readmeContent = Get-Content -LiteralPath $readmePath -Raw -Encoding UTF8
+$readmeContent = Update-ReadmeReleaseMetadata -Text $readmeContent -Manifest $manifest -Language 'zh'
 $readmeCapabilityBlock = New-ReadmeCapabilitySection -McpCapabilities $mcpCapabilities -PluginCapabilities $pluginCapabilities -SkillCapabilities $skillCapabilities
 $updatedReadme = Update-ManagedBlock -Text $readmeContent -BeginMarker '<!-- BEGIN:CAPABILITY-CATALOG -->' -EndMarker '<!-- END:CAPABILITY-CATALOG -->' -Replacement $readmeCapabilityBlock -InsertBeforeHeading '## 当前版本映射'
 Set-Content -Encoding UTF8 -Path $readmePath -Value $updatedReadme
 
 $readmeEnPath = Join-Path $repoRoot 'README.en.md'
 $readmeEnContent = Get-Content -LiteralPath $readmeEnPath -Raw -Encoding UTF8
+$readmeEnContent = Update-ReadmeReleaseMetadata -Text $readmeEnContent -Manifest $manifest -Language 'en'
 $readmeEnCapabilityBlock = New-ReadmeCapabilitySectionEn -McpCapabilities $mcpCapabilities -PluginCapabilities $pluginCapabilities -SkillCapabilities $skillCapabilities
 $updatedReadmeEn = Update-ManagedBlock -Text $readmeEnContent -BeginMarker '<!-- BEGIN:CAPABILITY-CATALOG -->' -EndMarker '<!-- END:CAPABILITY-CATALOG -->' -Replacement $readmeEnCapabilityBlock -InsertBeforeHeading '## Current Version Matrix'
 Set-Content -Encoding UTF8 -Path $readmeEnPath -Value $updatedReadmeEn

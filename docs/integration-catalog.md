@@ -34,18 +34,18 @@ Current Repo Version: v2026.04.10.2
 - `[example-local]` **Example inspection** <span style="color:#d9480f;font-weight:600;">NEW</span>
   - id: `mcp.example.inspect`
   - summary: Exposes inspection endpoints for local debugging.
-  - introduced: `v2026.04.10.1`
+  - introduced: `v2026.04.10.2`
 - `[example-local]` **Local example execution** <span style="color:#d9480f;font-weight:600;">NEW</span>
   - id: `mcp.example.execute`
   - summary: Runs the bundled local example server over stdio.
-  - introduced: `v2026.04.10.1`
+  - introduced: `v2026.04.10.2`
 
 ## Plugin Capabilities
 
 - `[sample.plugin]` **Local plugin install** <span style="color:#d9480f;font-weight:600;">NEW</span>
   - id: `plugin.sample.install`
   - summary: Makes the sample plugin available from the local registry.
-  - introduced: `v2026.04.10.1`
+  - introduced: `v2026.04.10.2`
 
 ## Skill Capabilities
 

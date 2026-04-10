@@ -76,6 +76,21 @@ $history = Merge-CapabilityHistory -Current @(
 if ($history['skill.capability.sample'].introducedIn -ne 'v2026.04.10.2') { throw 'Expected introducedIn to be set.' }
 if ($history['plugin.sample.install'].introducedIn -ne 'v2026.04.10.2') { throw 'Expected plugin introducedIn to be set.' }
 
+$historyWithPrior = Merge-CapabilityHistory -Current @(
+  @{ id = 'mcp.example.execute'; label = 'Local example execution'; kind = 'mcp'; owner = 'example-local'; summary = 'Runs the bundled local example server over stdio.'; ownerSource = 'mcp/servers.yaml' }
+) -History @{
+  'mcp.example.execute' = @{
+    id = 'mcp.example.execute'
+    label = 'Local example execution'
+    summary = 'Runs the bundled local example server over stdio.'
+    kind = 'mcp'
+    owner = 'example-local'
+    ownerSource = 'mcp/servers.yaml'
+    introducedIn = 'v2026.04.10.2'
+  }
+} -Version 'v2026.04.10.3'
+if ($historyWithPrior['mcp.example.execute'].introducedIn -ne 'v2026.04.10.2') { throw 'Expected existing introducedIn to remain stable.' }
+
 $badge = Render-CapabilityBadge -IsNew $true
 if ($badge -notmatch 'NEW') { throw 'Expected NEW badge markup.' }
 if ($badge -notmatch 'style=') { throw 'Expected inline color badge styling.' }

@@ -28,6 +28,15 @@ try {
   if (-not (Select-String -Path 'README.md' -Pattern 'NEW' -Quiet)) {
     throw 'Expected README capability section to include NEW markers in dry-run output.'
   }
+  if (-not (Select-String -Path 'README.md' -Pattern '\| repo \| v2099.01.01.1 \|' -Quiet)) {
+    throw 'Expected Chinese README version matrix to match the generated version.'
+  }
+  if (-not (Select-String -Path 'README.en.md' -Pattern '\| repo \| v2099.01.01.1 \|' -Quiet)) {
+    throw 'Expected English README version matrix to match the generated version.'
+  }
+  if (-not (Select-String -Path 'README.md' -Pattern '\\scripts\\release.ps1' -Quiet)) {
+    throw 'Expected Chinese README release command to use the normal PowerShell path.'
+  }
   if (-not (Select-String -Path 'README.en.md' -Pattern 'Plugin Capabilities' -Quiet)) {
     throw 'Expected English README capability section.'
   }

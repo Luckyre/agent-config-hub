@@ -8,8 +8,8 @@
 - 环境：`company`、`home`
 
 本仓库采用折中版本策略：
-- 对外：每次变更发布整仓版本 `tag`
-- 对内：在 `manifests/manifest.lock.json` 预留组件锁字段
+- 对外：每次有效变更发布整仓版本 `tag`
+- 对内：在 `manifests/manifest.lock.json` 预留组件锁字段，便于后续演进
 
 ## 快速开始
 
@@ -26,13 +26,13 @@ cd agent-config-hub
 .\scripts\bootstrap.ps1 -Tool codex -Profile company
 ```
 
-3. 同步到指定版本：
+3. 同步到当前稳定版本：
 
 ```powershell
-.\scripts\sync.ps1 -TargetVersion v2026.04.10.1 -Tool codex -Profile home
+.\scripts\sync.ps1 -TargetVersion v2026.04.10.2 -Tool codex -Profile home
 ```
 
-4. 配置更新后发布版本：
+4. 配置更新后发布新版本：
 
 ```powershell
 .\scripts\release.ps1 -Notes "update rules and mcp servers"
@@ -52,24 +52,24 @@ cd agent-config-hub
 - Skills 能力枚举：`skills/catalog.yaml`
 - 能力历史记录：`manifests/integration-history.json`
 - 版本锁文件：`manifests/manifest.lock.json`
-- 设备选型总览：`docs/integration-catalog.md`
+- 集成总览：`docs/integration-catalog.md`
 
 <!-- BEGIN:CAPABILITY-CATALOG -->
 
 ### MCP 能力枚举
 
-- `[example-local]` Example inspection <span style="color:#d9480f;font-weight:600;">NEW</span>: Exposes inspection endpoints for local debugging. (`introduced: v2026.04.10.1`)
-- `[example-local]` Local example execution <span style="color:#d9480f;font-weight:600;">NEW</span>: Runs the bundled local example server over stdio. (`introduced: v2026.04.10.1`)
+- `[example-local]` Example inspection <span style="color:#d9480f;font-weight:600;">NEW</span>: Exposes inspection endpoints for local debugging. (`introduced: v2026.04.10.2`)
+- `[example-local]` Local example execution <span style="color:#d9480f;font-weight:600;">NEW</span>: Runs the bundled local example server over stdio. (`introduced: v2026.04.10.2`)
 
 ### Plugins 能力枚举
 
-- `[sample.plugin]` Local plugin install <span style="color:#d9480f;font-weight:600;">NEW</span>: Makes the sample plugin available from the local registry. (`introduced: v2026.04.10.1`)
+- `[sample.plugin]` Local plugin install <span style="color:#d9480f;font-weight:600;">NEW</span>: Makes the sample plugin available from the local registry. (`introduced: v2026.04.10.2`)
 
 ### Skills 能力枚举
 
 - 暂无托管 Skills 能力项。
 
-> 标记说明：带有 `<span style="color:#d9480f;font-weight:600;">NEW</span>` 的能力表示“相对上一个 release tag 本次刚新增”。
+> 标记说明：带有 `<span style="color:#d9480f;font-weight:600;">NEW</span>` 的能力表示“相对上一个 release tag，本次版本刚新增”。
 
 <!-- END:CAPABILITY-CATALOG -->
 
@@ -77,16 +77,16 @@ cd agent-config-hub
 
 | 组件 | 版本 |
 | --- | --- |
-| repo | v2026.04.10.1 |
-| rules | v2026.04.10.1 |
-| mcp | v2026.04.10.1 |
-| plugins | v2026.04.10.1 |
-| skills | v2026.04.10.1 |
+| repo | v2026.04.10.2 |
+| rules | v2026.04.10.2 |
+| mcp | v2026.04.10.2 |
+| plugins | v2026.04.10.2 |
+| skills | v2026.04.10.2 |
 
 ## 版本迭代要求（每次发布必做）
 
 1. 按需更新 `rules/`、`mcp/`、`plugins/`、`skills/`、`configs/`。
-2. 执行 `\.\scripts\release.ps1 -Notes "<本次变更说明>"`。
+2. 执行 `.\scripts\release.ps1 -Notes "<本次变更说明>"`。
 3. 发布脚本会自动更新：
    - `manifests/manifest.lock.json`
    - `manifests/integration-history.json`
@@ -94,4 +94,3 @@ cd agent-config-hub
    - `docs/integration-catalog.md`
    - `README.md` 与 `README.en.md` 中的能力枚举托管区块
 4. 推送提交与标签：`git push origin HEAD --tags`。
-

@@ -26,10 +26,10 @@ cd agent-config-hub
 .\scripts\bootstrap.ps1 -Tool codex -Profile company
 ```
 
-3. Sync to a specific version:
+3. Sync to the current stable version:
 
 ```powershell
-.\scripts\sync.ps1 -TargetVersion v2026.04.10.1 -Tool codex -Profile home
+.\scripts\sync.ps1 -TargetVersion v2026.04.10.2 -Tool codex -Profile home
 ```
 
 4. Create a release after config updates:
@@ -58,12 +58,12 @@ cd agent-config-hub
 
 ### MCP Capabilities
 
-- `[example-local]` Example inspection <span style="color:#d9480f;font-weight:600;">NEW</span>: Exposes inspection endpoints for local debugging. (`introduced: v2026.04.10.1`)
-- `[example-local]` Local example execution <span style="color:#d9480f;font-weight:600;">NEW</span>: Runs the bundled local example server over stdio. (`introduced: v2026.04.10.1`)
+- `[example-local]` Example inspection <span style="color:#d9480f;font-weight:600;">NEW</span>: Exposes inspection endpoints for local debugging. (`introduced: v2026.04.10.2`)
+- `[example-local]` Local example execution <span style="color:#d9480f;font-weight:600;">NEW</span>: Runs the bundled local example server over stdio. (`introduced: v2026.04.10.2`)
 
 ### Plugin Capabilities
 
-- `[sample.plugin]` Local plugin install <span style="color:#d9480f;font-weight:600;">NEW</span>: Makes the sample plugin available from the local registry. (`introduced: v2026.04.10.1`)
+- `[sample.plugin]` Local plugin install <span style="color:#d9480f;font-weight:600;">NEW</span>: Makes the sample plugin available from the local registry. (`introduced: v2026.04.10.2`)
 
 ### Skill Capabilities
 
@@ -77,11 +77,11 @@ cd agent-config-hub
 
 | Component | Version |
 | --- | --- |
-| repo | v2026.04.10.1 |
-| rules | v2026.04.10.1 |
-| mcp | v2026.04.10.1 |
-| plugins | v2026.04.10.1 |
-| skills | v2026.04.10.1 |
+| repo | v2026.04.10.2 |
+| rules | v2026.04.10.2 |
+| mcp | v2026.04.10.2 |
+| plugins | v2026.04.10.2 |
+| skills | v2026.04.10.2 |
 
 ## Release Iteration Rule
 
