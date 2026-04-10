@@ -58,6 +58,14 @@ Installed targets:
 - `-Tool codex`: installs to `~/.codex`
 - `-Tool claudex`: installs to `~/.claude`
 
+## Documentation Map
+
+- Quick start: this page `README.en.md`
+- Integration overview: `docs/integration-catalog.md`
+- Release history: `CHANGELOG.md`
+- Maintainer conventions and tooling notes: `docs/maintainer-guide.md`
+- Design and planning records: `docs/superpowers/specs/`, `docs/superpowers/plans/`
+
 ## Merge Priority
 
 `base -> tool -> os -> profile -> local.override`
@@ -79,14 +87,20 @@ Installed targets:
 
 ### MCP Capabilities
 
+This section lists the actual capability items exposed by each MCP server, not just server names.
+
 - `[example-local]` Example inspection: Exposes inspection endpoints for local debugging. (`introduced: v2026.04.10.2`)
 - `[example-local]` Local example execution: Runs the bundled local example server over stdio. (`introduced: v2026.04.10.2`)
 
 ### Plugin Capabilities
 
+This section lists the capability actions made available by each plugin in the current configuration.
+
 - `[sample.plugin]` Local plugin install: Makes the sample plugin available from the local registry. (`introduced: v2026.04.10.2`)
 
 ### Skill Capabilities
+
+This section lists executable skill actions, keeping the English term names while making the capability purpose easier to scan.
 
 - `[OpenSpec Apply Change]` Change context loading <span style="color:#d9480f;font-weight:600;">NEW</span>: Reads proposal, design, specs, and task context before implementation starts. (`introduced: v2026.04.10.5`)
 - `[OpenSpec Apply Change]` Change task implementation <span style="color:#d9480f;font-weight:600;">NEW</span>: Executes pending OpenSpec tasks and updates task completion status during implementation. (`introduced: v2026.04.10.5`)
