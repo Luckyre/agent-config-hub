@@ -1,13 +1,64 @@
 ﻿{
-  "repoVersion": "v0.0.0",
-  "generatedAt": "1970-01-01T00:00:00Z",
-  "rulesVersion": "v0.0.0",
-  "mcpVersion": "v0.0.0",
-  "pluginsVersion": "v0.0.0",
-  "skillsVersion": "v0.0.0",
-  "compatibility": {
-    "tools": ["codex", "claudex"],
-    "os": ["windows", "macos"]
-  },
-  "files": []
+    "repoVersion":  "v2026.04.10.1",
+    "generatedAt":  "2026-04-10T00:55:24Z",
+    "rulesVersion":  "v2026.04.10.1",
+    "mcpVersion":  "v2026.04.10.1",
+    "pluginsVersion":  "v2026.04.10.1",
+    "skillsVersion":  "v2026.04.10.1",
+    "compatibility":  {
+                          "tools":  [
+                                        "codex",
+                                        "claudex"
+                                    ],
+                          "os":  [
+                                     "windows",
+                                     "macos"
+                                 ]
+                      },
+    "files":  [
+                  {
+                      "path":  "configs\\base.yaml",
+                      "sha256":  "75ff38bc5c2d4b35b83112352d05c3a271b7ec2371eadad3b190406688d7b199"
+                  },
+                  {
+                      "path":  "configs\\os\\macos.yaml",
+                      "sha256":  "c2898bf2fb6e1ace4fa1e07f2236ebe260a12ac1d2c857ae410fea293e35e9f9"
+                  },
+                  {
+                      "path":  "configs\\os\\windows.yaml",
+                      "sha256":  "93d8fc61961675f0e8825e89b82cd924e5524b5a8be49f3fd2ad737e35c7a1d6"
+                  },
+                  {
+                      "path":  "configs\\profiles\\company.yaml",
+                      "sha256":  "e05e2ae4a4b576071eeeff0a86e4ceac7f4c9c90c147e82a440c14edb801b380"
+                  },
+                  {
+                      "path":  "configs\\profiles\\home.yaml",
+                      "sha256":  "ee1629ccde187c3da86450dca7f7d08f6a5af4c33cbd0a7140168c79b04d0123"
+                  },
+                  {
+                      "path":  "configs\\tools\\claudex.yaml",
+                      "sha256":  "a0017c7d4546824836717eb61cbb10b342c5c9f06e300f01a1654b38333b69ec"
+                  },
+                  {
+                      "path":  "configs\\tools\\codex.yaml",
+                      "sha256":  "eedbab1c4ccdca99654b5c2c888312e7f20c41dce18b7c73cad2b4840e124c85"
+                  },
+                  {
+                      "path":  "mcp\\servers.yaml",
+                      "sha256":  "74bc9533a88541196966016081846b560aac03df57b9b5e5b63c8ff0fff7d106"
+                  },
+                  {
+                      "path":  "plugins\\registry.yaml",
+                      "sha256":  "a9871fe1e8b49dcf3aa845994ec7b412963ac99e346be220ac837147037b14ee"
+                  },
+                  {
+                      "path":  "rules\\base.md",
+                      "sha256":  "197514871aca1a90e2e65420138aba70e072e5bf5d6dbd316b54bac355d48989"
+                  },
+                  {
+                      "path":  "skills\\README.md",
+                      "sha256":  "bf15ab749d6f6b9d22dcc4e4932099a2d783aeeee6c1b21a60649b906a181155"
+                  }
+              ]
 }
