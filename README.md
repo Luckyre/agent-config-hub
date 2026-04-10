@@ -44,7 +44,7 @@ cd agent-config-hub
 3. 同步到当前稳定版本：
 
 ```powershell
-.\scripts\sync.ps1 -TargetVersion v2026.04.10.4 -Tool codex -Profile home
+.\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool codex -Profile home
 ```
 
 4. 配置更新后发布新版本：
@@ -82,14 +82,14 @@ cd agent-config-hub
 
 ### Skills 能力枚举
 
-- `[OpenSpec Apply Change]` Change context loading: Reads proposal, design, specs, and task context before implementation starts. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Apply Change]` Change task implementation: Executes pending OpenSpec tasks and updates task completion status during implementation. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Archive Change]` Change archival: Moves completed changes into the archive path with a dated archive location. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Archive Change]` Completion verification: Checks artifact state, task completion, and delta spec sync state before archiving. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Explore]` Problem exploration: Investigates requirements, tradeoffs, and codebase context before implementation. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Explore]` Spec-aware discovery: Connects exploration results back to OpenSpec proposals, designs, and specs when useful. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]` Change scaffolding: Creates a new OpenSpec change directory and prepares artifact generation order. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]` Proposal artifact generation: Generates proposal, design, and task files required to make a change implementation-ready. (`introduced: v2026.04.10.3`)
+- `[OpenSpec Apply Change]` Change context loading <span style="color:#d9480f;font-weight:600;">NEW</span>: Reads proposal, design, specs, and task context before implementation starts. (`introduced: v2026.04.10.5`)
+- `[OpenSpec Apply Change]` Change task implementation <span style="color:#d9480f;font-weight:600;">NEW</span>: Executes pending OpenSpec tasks and updates task completion status during implementation. (`introduced: v2026.04.10.5`)
+- `[OpenSpec Archive Change]` Change archival <span style="color:#d9480f;font-weight:600;">NEW</span>: Moves completed changes into the archive path with a dated archive location. (`introduced: v2026.04.10.5`)
+- `[OpenSpec Archive Change]` Completion verification <span style="color:#d9480f;font-weight:600;">NEW</span>: Checks artifact state, task completion, and delta spec sync state before archiving. (`introduced: v2026.04.10.5`)
+- `[OpenSpec Explore]` Problem exploration <span style="color:#d9480f;font-weight:600;">NEW</span>: Investigates requirements, tradeoffs, and codebase context before implementation. (`introduced: v2026.04.10.5`)
+- `[OpenSpec Explore]` Spec-aware discovery <span style="color:#d9480f;font-weight:600;">NEW</span>: Connects exploration results back to OpenSpec proposals, designs, and specs when useful. (`introduced: v2026.04.10.5`)
+- `[OpenSpec Propose]` Change scaffolding <span style="color:#d9480f;font-weight:600;">NEW</span>: Creates a new OpenSpec change directory and prepares artifact generation order. (`introduced: v2026.04.10.5`)
+- `[OpenSpec Propose]` Proposal artifact generation <span style="color:#d9480f;font-weight:600;">NEW</span>: Generates proposal, design, and task files required to make a change implementation-ready. (`introduced: v2026.04.10.5`)
 
 > 标记说明：带有 `<span style="color:#d9480f;font-weight:600;">NEW</span>` 的能力表示“相对上一个 release tag 本次刚新增”。
 
@@ -99,11 +99,11 @@ cd agent-config-hub
 
 | 组件 | 版本 |
 | --- | --- |
-| repo | v2026.04.10.4 |
-| rules | v2026.04.10.4 |
-| mcp | v2026.04.10.4 |
-| plugins | v2026.04.10.4 |
-| skills | v2026.04.10.4 |
+| repo | v2026.04.10.5 |
+| rules | v2026.04.10.5 |
+| mcp | v2026.04.10.5 |
+| plugins | v2026.04.10.5 |
+| skills | v2026.04.10.5 |
 ## 版本迭代要求（每次发布必做）
 
 1. 按需更新 `rules/`、`mcp/`、`plugins/`、`skills/`、`configs/`。
@@ -115,5 +115,6 @@ cd agent-config-hub
    - `docs/integration-catalog.md`
    - `README.md` 与 `README.en.md` 中的能力枚举托管区块
 4. 推送提交与标签：`git push origin HEAD --tags`。
+
 
 

@@ -41,3 +41,13 @@ All notable changes to this repository are documented here.
 - Skills: openspec-apply-change, openspec-archive-change, openspec-explore, openspec-propose
 - New capabilities vs previous release: none
 - Integration catalog: docs/integration-catalog.md
+
+## [v2026.04.10.5] - 2026-04-10
+
+- publish managed openspec skill capabilities
+- Integration versions: rules=v2026.04.10.5, mcp=v2026.04.10.5, plugins=v2026.04.10.5, skills=v2026.04.10.5
+- MCP servers: example-local
+- Plugins: sample.plugin
+- Skills: openspec-apply-change, openspec-archive-change, openspec-explore, openspec-propose
+- New capabilities vs previous release: skill.openspec.apply.implement-tasks, skill.openspec.apply.context-loading, skill.openspec.archive.completion-check, skill.openspec.archive.finalize-change, skill.openspec.explore.problem-discovery, skill.openspec.explore.spec-capture, skill.openspec.propose.change-scaffold, skill.openspec.propose.artifact-generation
+- Integration catalog: docs/integration-catalog.md

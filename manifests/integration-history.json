@@ -61,7 +61,7 @@
                                                                       "kind":  "skill",
                                                                       "owner":  "OpenSpec Apply Change",
                                                                       "ownerSource":  ".codex/skills/openspec-apply-change",
-                                                                      "introducedIn":  "v2026.04.10.3"
+                                                                      "introducedIn":  "v2026.04.10.5"
                                                                   },
                          "skill.openspec.apply.implement-tasks":  {
                                                                       "id":  "skill.openspec.apply.implement-tasks",
@@ -70,7 +70,7 @@
                                                                       "kind":  "skill",
                                                                       "owner":  "OpenSpec Apply Change",
                                                                       "ownerSource":  ".codex/skills/openspec-apply-change",
-                                                                      "introducedIn":  "v2026.04.10.3"
+                                                                      "introducedIn":  "v2026.04.10.5"
                                                                   },
                          "skill.openspec.archive.completion-check":  {
                                                                          "id":  "skill.openspec.archive.completion-check",
@@ -79,7 +79,7 @@
                                                                          "kind":  "skill",
                                                                          "owner":  "OpenSpec Archive Change",
                                                                          "ownerSource":  ".codex/skills/openspec-archive-change",
-                                                                         "introducedIn":  "v2026.04.10.3"
+                                                                         "introducedIn":  "v2026.04.10.5"
                                                                      },
                          "skill.openspec.archive.finalize-change":  {
                                                                         "id":  "skill.openspec.archive.finalize-change",
@@ -88,7 +88,7 @@
                                                                         "kind":  "skill",
                                                                         "owner":  "OpenSpec Archive Change",
                                                                         "ownerSource":  ".codex/skills/openspec-archive-change",
-                                                                        "introducedIn":  "v2026.04.10.3"
+                                                                        "introducedIn":  "v2026.04.10.5"
                                                                     },
                          "skill.openspec.explore.problem-discovery":  {
                                                                           "id":  "skill.openspec.explore.problem-discovery",
@@ -97,7 +97,7 @@
                                                                           "kind":  "skill",
                                                                           "owner":  "OpenSpec Explore",
                                                                           "ownerSource":  ".codex/skills/openspec-explore",
-                                                                          "introducedIn":  "v2026.04.10.3"
+                                                                          "introducedIn":  "v2026.04.10.5"
                                                                       },
                          "skill.openspec.explore.spec-capture":  {
                                                                      "id":  "skill.openspec.explore.spec-capture",
@@ -106,7 +106,7 @@
                                                                      "kind":  "skill",
                                                                      "owner":  "OpenSpec Explore",
                                                                      "ownerSource":  ".codex/skills/openspec-explore",
-                                                                     "introducedIn":  "v2026.04.10.3"
+                                                                     "introducedIn":  "v2026.04.10.5"
                                                                  },
                          "skill.openspec.propose.artifact-generation":  {
                                                                             "id":  "skill.openspec.propose.artifact-generation",
@@ -115,7 +115,7 @@
                                                                             "kind":  "skill",
                                                                             "owner":  "OpenSpec Propose",
                                                                             "ownerSource":  ".codex/skills/openspec-propose",
-                                                                            "introducedIn":  "v2026.04.10.3"
+                                                                            "introducedIn":  "v2026.04.10.5"
                                                                         },
                          "skill.openspec.propose.change-scaffold":  {
                                                                         "id":  "skill.openspec.propose.change-scaffold",
@@ -124,7 +124,7 @@
                                                                         "kind":  "skill",
                                                                         "owner":  "OpenSpec Propose",
                                                                         "ownerSource":  ".codex/skills/openspec-propose",
-                                                                        "introducedIn":  "v2026.04.10.3"
+                                                                        "introducedIn":  "v2026.04.10.5"
                                                                     }
                      }
 }
