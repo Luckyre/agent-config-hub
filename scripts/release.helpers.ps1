@@ -123,33 +123,33 @@ function Convert-LinesToPlugins {
   $plugins = @()
   $currentPlugin = $null
   $currentCapability = $null
-  $inCapabilities = $false
 
   foreach ($line in $Lines) {
-    if ($line -match '^\s*-\s+id:\s*(.+?)\s*$') {
-      if ($inCapabilities) {
-        if ($currentCapability) {
-          $currentPlugin.capabilities += [pscustomobject]$currentCapability
-        }
-        $currentCapability = [ordered]@{
-          id = $Matches[1].Trim()
-          label = ''
-          summary = ''
-        }
-      } else {
-        if ($currentCapability) {
-          $currentPlugin.capabilities += [pscustomobject]$currentCapability
-          $currentCapability = $null
-        }
-        if ($currentPlugin) {
-          $plugins += [pscustomobject]$currentPlugin
-        }
-        $currentPlugin = [ordered]@{
-          id = $Matches[1].Trim()
-          enabled = ''
-          source = ''
-          capabilities = @()
-        }
+    if ($line -match '^\s{2}-\s+id:\s*(.+?)\s*$') {
+      if ($currentCapability) {
+        $currentPlugin.capabilities += [pscustomobject]$currentCapability
+        $currentCapability = $null
+      }
+      if ($currentPlugin) {
+        $plugins += [pscustomobject]$currentPlugin
+      }
+      $currentPlugin = [ordered]@{
+        id = $Matches[1].Trim()
+        enabled = ''
+        source = ''
+        capabilities = @()
+      }
+      continue
+    }
+
+    if ($line -match '^\s{6}-\s+id:\s*(.+?)\s*$') {
+      if ($currentCapability) {
+        $currentPlugin.capabilities += [pscustomobject]$currentCapability
+      }
+      $currentCapability = [ordered]@{
+        id = $Matches[1].Trim()
+        label = ''
+        summary = ''
       }
       continue
     }
@@ -158,27 +158,26 @@ function Convert-LinesToPlugins {
       continue
     }
 
-    if ($line -match '^\s+enabled:\s*(.+?)\s*$') {
+    if ($line -match '^\s{4}enabled:\s*(.+?)\s*$') {
       $currentPlugin.enabled = $Matches[1].Trim()
       continue
     }
 
-    if ($line -match '^\s+source:\s*(.+?)\s*$') {
+    if ($line -match '^\s{4}source:\s*(.+?)\s*$') {
       $currentPlugin.source = $Matches[1].Trim()
       continue
     }
 
-    if ($line -match '^\s+capabilities:\s*$') {
-      $inCapabilities = $true
+    if ($line -match '^\s{4}capabilities:\s*$') {
       continue
     }
 
-    if ($currentCapability -and $line -match '^\s+label:\s*(.+?)\s*$') {
+    if ($currentCapability -and $line -match '^\s{8}label:\s*(.+?)\s*$') {
       $currentCapability.label = $Matches[1].Trim()
       continue
     }
 
-    if ($currentCapability -and $line -match '^\s+summary:\s*(.+?)\s*$') {
+    if ($currentCapability -and $line -match '^\s{8}summary:\s*(.+?)\s*$') {
       $currentCapability.summary = $Matches[1].Trim()
       continue
     }
@@ -217,34 +216,34 @@ function Convert-LinesToSkillsCatalog {
   $skills = @()
   $currentSkill = $null
   $currentCapability = $null
-  $inCapabilities = $false
 
   foreach ($line in $Lines) {
-    if ($line -match '^\s*-\s+id:\s*(.+?)\s*$') {
-      if ($inCapabilities) {
-        if ($currentCapability) {
-          $currentSkill.capabilities += [pscustomobject]$currentCapability
-        }
-        $currentCapability = [ordered]@{
-          id = $Matches[1].Trim()
-          label = ''
-          summary = ''
-        }
-      } else {
-        if ($currentCapability) {
-          $currentSkill.capabilities += [pscustomobject]$currentCapability
-          $currentCapability = $null
-        }
-        if ($currentSkill) {
-          $skills += [pscustomobject]$currentSkill
-        }
-        $currentSkill = [ordered]@{
-          id = $Matches[1].Trim()
-          name = ''
-          source = ''
-          summary = ''
-          capabilities = @()
-        }
+    if ($line -match '^\s{2}-\s+id:\s*(.+?)\s*$') {
+      if ($currentCapability) {
+        $currentSkill.capabilities += [pscustomobject]$currentCapability
+        $currentCapability = $null
+      }
+      if ($currentSkill) {
+        $skills += [pscustomobject]$currentSkill
+      }
+      $currentSkill = [ordered]@{
+        id = $Matches[1].Trim()
+        name = ''
+        source = ''
+        summary = ''
+        capabilities = @()
+      }
+      continue
+    }
+
+    if ($line -match '^\s{6}-\s+id:\s*(.+?)\s*$') {
+      if ($currentCapability) {
+        $currentSkill.capabilities += [pscustomobject]$currentCapability
+      }
+      $currentCapability = [ordered]@{
+        id = $Matches[1].Trim()
+        label = ''
+        summary = ''
       }
       continue
     }
@@ -253,31 +252,31 @@ function Convert-LinesToSkillsCatalog {
       continue
     }
 
-    if ($line -match '^\s+name:\s*(.+?)\s*$') {
+    if ($line -match '^\s{4}name:\s*(.+?)\s*$') {
       $currentSkill.name = $Matches[1].Trim()
       continue
     }
 
-    if ($line -match '^\s+source:\s*(.+?)\s*$') {
+    if ($line -match '^\s{4}source:\s*(.+?)\s*$') {
       $currentSkill.source = $Matches[1].Trim()
       continue
     }
 
-    if ($line -match '^\s+summary:\s*(.+?)\s*$') {
-      if ($inCapabilities -and $currentCapability) {
+    if ($line -match '^\s{4}summary:\s*(.+?)\s*$') {
+      $currentSkill.summary = $Matches[1].Trim()
+      continue
+    }
+
+    if ($currentCapability -and $line -match '^\s{8}summary:\s*(.+?)\s*$') {
         $currentCapability.summary = $Matches[1].Trim()
-      } else {
-        $currentSkill.summary = $Matches[1].Trim()
-      }
       continue
     }
 
-    if ($line -match '^\s+capabilities:\s*$') {
-      $inCapabilities = $true
+    if ($line -match '^\s{4}capabilities:\s*$') {
       continue
     }
 
-    if ($currentCapability -and $line -match '^\s+label:\s*(.+?)\s*$') {
+    if ($currentCapability -and $line -match '^\s{8}label:\s*(.+?)\s*$') {
       $currentCapability.label = $Matches[1].Trim()
       continue
     }

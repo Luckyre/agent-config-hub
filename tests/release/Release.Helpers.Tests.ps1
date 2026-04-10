@@ -32,6 +32,14 @@ skills:
       - id: skill.capability.sample
         label: Sample capability
         summary: Demonstrates structured capability parsing.
+  - id: skill.second
+    name: Second Skill
+    source: skills/second
+    summary: Second managed skill.
+    capabilities:
+      - id: skill.capability.second
+        label: Second capability
+        summary: Verifies top-level skill parsing remains separate.
 "@ | Set-Content -Encoding UTF8 (Join-Path $fixtureRoot 'catalog.yaml')
 
 @"
@@ -51,8 +59,10 @@ if ($mcp[0].capabilities.Count -ne 2) { throw 'Expected MCP capabilities to be p
 if ($mcp[0].capabilities[0].id -ne 'mcp.example.execute') { throw 'Expected MCP capability ids to match.' }
 
 $skills = @(Get-SkillsCatalog -Path (Join-Path $fixtureRoot 'catalog.yaml'))
-if ($skills.Count -ne 1) { throw 'Expected one skill.' }
+if ($skills.Count -ne 2) { throw 'Expected two skills.' }
 if ($skills[0].capabilities[0].id -ne 'skill.capability.sample') { throw 'Expected skill capability ids to be parsed.' }
+if ($skills[1].id -ne 'skill.second') { throw 'Expected second skill to remain a top-level entry.' }
+if ($skills[1].capabilities[0].id -ne 'skill.capability.second') { throw 'Expected second skill capability to be parsed separately.' }
 
 $plugins = @(Get-PluginsDetailed -Path (Join-Path $fixtureRoot 'plugins.yaml'))
 if ($plugins.Count -ne 1) { throw 'Expected one plugin.' }
