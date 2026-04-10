@@ -29,38 +29,78 @@
 
 ## 快速开始
 
-1. 克隆仓库：
+先克隆仓库：
 
 ```powershell
 git clone https://github.com/Luckyre/agent-config-hub.git
 cd agent-config-hub
 ```
 
-2. 初始化本机：
+### 我是配置使用者
+
+如果你只是想把这套配置同步到本机，先确定两件事：
+
+- 你使用的工具：`codex` 或 `claudex`
+- 你所在的环境：`company` 或 `home`
+
+#### Codex 用户
+
+首次初始化：
 
 ```powershell
 .\scripts\bootstrap.ps1 -Tool codex -Profile company
 ```
 
-3. 同步到当前稳定版本：
+同步到当前稳定版本：
+
+```powershell
+.\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool codex -Profile company
+```
+
+安装位置：
+- 配置与启动脚本会安装到 `~/.codex`
+
+#### Claudex 用户
+
+首次初始化：
+
+```powershell
+.\scripts\bootstrap.ps1 -Tool claudex -Profile company
+```
+
+同步到当前稳定版本：
+
+```powershell
+.\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool claudex -Profile company
+```
+
+安装位置：
+- 配置与启动脚本会安装到 `~/.claude`
+
+#### Profile 怎么选
+
+- `-Profile company`：公司环境配置
+- `-Profile home`：家庭环境配置
+
+如果你已经初始化过，只想切换环境或升级版本，直接重新执行 `sync` 即可，例如：
 
 ```powershell
 .\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool codex -Profile home
 ```
 
-4. 配置更新后发布新版本：
+### 我是仓库维护者
+
+如果你是在维护这套配置，并且已经完成变更，需要发布一个新版本：
 
 ```powershell
 .\scripts\release.ps1 -Notes "update rules and mcp servers"
 ```
 
-安装结果：
-- `-Tool codex`：自动安装到 `~/.codex`
-- `-Tool claudex`：自动安装到 `~/.claude`
+`release` 会更新版本锁、能力历史、`CHANGELOG` 以及 `README` 中的能力枚举区块。维护细节见 `docs/maintainer-guide.md`。
 
 ## 文档地图
 
-- 快速上手：当前页 `README.md`
+- 快速开始：当前页 `README.md`
 - 集成能力总览：`docs/integration-catalog.md`
 - 版本变更记录：`CHANGELOG.md`
 - 维护约定与工具资源：`docs/maintainer-guide.md`

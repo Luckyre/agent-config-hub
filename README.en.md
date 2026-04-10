@@ -29,38 +29,78 @@ Typical use cases:
 
 ## Quick Start
 
-1. Clone repository:
+Clone the repository first:
 
 ```powershell
 git clone https://github.com/Luckyre/agent-config-hub.git
 cd agent-config-hub
 ```
 
-2. Initialize local machine:
+### I am a config user
+
+If you just want to sync this config to your machine, decide these two inputs first:
+
+- Which tool you use: `codex` or `claudex`
+- Which profile you are in: `company` or `home`
+
+#### Codex users
+
+First-time setup:
 
 ```powershell
 .\scripts\bootstrap.ps1 -Tool codex -Profile company
 ```
 
-3. Sync to the current stable version:
+Sync to the current stable version:
+
+```powershell
+.\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool codex -Profile company
+```
+
+Install target:
+- Config and startup wrapper files are installed to `~/.codex`
+
+#### Claudex users
+
+First-time setup:
+
+```powershell
+.\scripts\bootstrap.ps1 -Tool claudex -Profile company
+```
+
+Sync to the current stable version:
+
+```powershell
+.\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool claudex -Profile company
+```
+
+Install target:
+- Config and startup wrapper files are installed to `~/.claude`
+
+#### How to choose a profile
+
+- `-Profile company`: company environment config
+- `-Profile home`: home environment config
+
+If you have already initialized once and only want to switch profiles or upgrade to another version, run `sync` again. For example:
 
 ```powershell
 .\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool codex -Profile home
 ```
 
-4. Create a release after config updates:
+### I am a repository maintainer
+
+If you maintain this repo and need to publish a new version after config changes:
 
 ```powershell
 .\scripts\release.ps1 -Notes "update rules and mcp servers"
 ```
 
-Installed targets:
-- `-Tool codex`: installs to `~/.codex`
-- `-Tool claudex`: installs to `~/.claude`
+`release` updates the version lock, capability history, `CHANGELOG`, and the capability catalog blocks in the READMEs. For maintainer details, see `docs/maintainer-guide.md`.
 
 ## Documentation Map
 
-- Quick start: this page `README.en.md`
+- Quick Start: this page `README.en.md`
 - Integration overview: `docs/integration-catalog.md`
 - Release history: `CHANGELOG.md`
 - Maintainer conventions and tooling notes: `docs/maintainer-guide.md`
