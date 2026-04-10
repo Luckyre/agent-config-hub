@@ -1,1 +1,45 @@
-﻿skills: []
+﻿skills:
+  - id: openspec-apply-change
+    name: OpenSpec Apply Change
+    source: .codex/skills/openspec-apply-change
+    summary: Implement tasks from an existing OpenSpec change and advance task completion.
+    capabilities:
+      - id: skill.openspec.apply.implement-tasks
+        label: Change task implementation
+        summary: Executes pending OpenSpec tasks and updates task completion status during implementation.
+      - id: skill.openspec.apply.context-loading
+        label: Change context loading
+        summary: Reads proposal, design, specs, and task context before implementation starts.
+  - id: openspec-archive-change
+    name: OpenSpec Archive Change
+    source: .codex/skills/openspec-archive-change
+    summary: Archive a completed OpenSpec change after checking artifacts, tasks, and sync status.
+    capabilities:
+      - id: skill.openspec.archive.completion-check
+        label: Completion verification
+        summary: Checks artifact state, task completion, and delta spec sync state before archiving.
+      - id: skill.openspec.archive.finalize-change
+        label: Change archival
+        summary: Moves completed changes into the archive path with a dated archive location.
+  - id: openspec-explore
+    name: OpenSpec Explore
+    source: .codex/skills/openspec-explore
+    summary: Explore ideas, investigate problems, and clarify requirements without implementing code.
+    capabilities:
+      - id: skill.openspec.explore.problem-discovery
+        label: Problem exploration
+        summary: Investigates requirements, tradeoffs, and codebase context before implementation.
+      - id: skill.openspec.explore.spec-capture
+        label: Spec-aware discovery
+        summary: Connects exploration results back to OpenSpec proposals, designs, and specs when useful.
+  - id: openspec-propose
+    name: OpenSpec Propose
+    source: .codex/skills/openspec-propose
+    summary: Create a new OpenSpec change with proposal, design, and task artifacts in one pass.
+    capabilities:
+      - id: skill.openspec.propose.change-scaffold
+        label: Change scaffolding
+        summary: Creates a new OpenSpec change directory and prepares artifact generation order.
+      - id: skill.openspec.propose.artifact-generation
+        label: Proposal artifact generation
+        summary: Generates proposal, design, and task files required to make a change implementation-ready.
