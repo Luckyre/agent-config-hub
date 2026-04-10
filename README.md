@@ -4,6 +4,8 @@
 
 面向多设备、多工具、多环境的 Agent 配置中心仓库。
 
+它当前更接近一个“Agent 配置发布中心 / 版本化配置骨架仓库”，而不是已经把所有配置直接落到 `Codex` / `Claudex` 真实运行目录中的成品安装器。
+
 它的目标不是单纯“存一份配置”，而是把 `rules`、`mcp`、`plugins`、`skills` 和运行时 `configs` 放进同一条可追踪、可发布、可回滚的配置链路里，降低手工同步和跨设备漂移的成本。
 
 仓库当前覆盖：
@@ -27,6 +29,23 @@
 - 对外：每次有效变更发布整仓版本 `tag`
 - 对内：在 `manifests/manifest.lock.json` 预留组件锁字段，便于后续演进
 
+## 当前状态
+
+当前已经实现：
+- 通过 `sync.ps1` 按 `tool / os / profile` 生成版本化快照到 `~/.codex-config/live`
+- 通过 `install-tooling.ps1` 把 `tooling/` 下的 prompt 和启动脚本复制到 `~/.codex` 或 `~/.claude`
+- 通过 `release.ps1` 生成 `manifest.lock.json`、`integration-history.json`、`CHANGELOG`、双语 `README` 和集成目录
+
+当前尚未完全实现：
+- `base -> tool -> os -> profile` 的真实 YAML 合并与最终 effective config 渲染
+- 将 `rules / mcp / plugins / skills` 直接 apply 到工具原生 live 目录
+- 完整覆盖 `bootstrap / sync / apply` 落地链路的自动化测试
+
+使用上需要注意：
+- `bootstrap.ps1` 本质上只是对 `sync.ps1` 的薄包装
+- `sync.ps1 -TargetVersion <tag>` 当前会执行 `git fetch --tags` 和 `git checkout <tag>`，会改动当前仓库 HEAD
+- `README` 中提到的“安装到 `~/.codex` / `~/.claude`”当前主要指 tooling 资源，不是完整配置快照的最终落点
+
 ## 快速开始
 
 先克隆仓库：
@@ -38,7 +57,7 @@ cd agent-config-hub
 
 ### 我是配置使用者
 
-如果你只是想把这套配置同步到本机，先确定两件事：
+如果你只是想在本机生成并验证这套配置的当前快照，先确定两件事：
 
 - 你使用的工具：`codex` 或 `claudex`
 - 你所在的环境：`company` 或 `home`
@@ -57,8 +76,9 @@ cd agent-config-hub
 .\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool codex -Profile company
 ```
 
-安装位置：
-- 配置与启动脚本会安装到 `~/.codex`
+同步结果：
+- 快照会生成到 `~/.codex-config/live`
+- `codex` 专用 prompt / 启动脚本会安装到 `~/.codex`
 
 #### Claudex 用户
 
@@ -74,8 +94,9 @@ cd agent-config-hub
 .\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool claudex -Profile company
 ```
 
-安装位置：
-- 配置与启动脚本会安装到 `~/.claude`
+同步结果：
+- 快照会生成到 `~/.codex-config/live`
+- `claudex` 专用 prompt / 启动脚本会安装到 `~/.claude`
 
 #### Profile 怎么选
 
@@ -87,6 +108,10 @@ cd agent-config-hub
 ```powershell
 .\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool codex -Profile home
 ```
+
+说明：
+- 当前 `sync` 不会把 `rules / mcp / plugins / skills` 直接合并后写入工具原生目录
+- 它会先产出仓库快照，再安装 `tooling/` 中与工具启动相关的文件
 
 ### 我是仓库维护者
 
@@ -106,9 +131,13 @@ cd agent-config-hub
 - 维护约定与工具资源：`docs/maintainer-guide.md`
 - 设计与计划沉淀：`docs/superpowers/specs/`、`docs/superpowers/plans/`
 
-## 配置合并优先级
+## 声明的配置层级
 
 `base -> tool -> os -> profile -> local.override`
+
+说明：
+- 这是仓库层面的目标层级声明
+- 当前脚本会保留这些层级文件与元数据，但尚未执行真实合并
 
 ## 集成能力清单
 

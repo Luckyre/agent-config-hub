@@ -4,6 +4,8 @@ Language: [中文](README.md) | English
 
 A centralized Agent configuration repository for multiple devices, tools, and runtime profiles.
 
+At its current stage, this repo is closer to an "Agent config release hub / versioned config skeleton" than a finished installer that applies every config directly into the real runtime directories of `Codex` or `Claudex`.
+
 The goal is not just to store config files. This repo puts `rules`, `mcp`, `plugins`, `skills`, and runtime `configs` into a single workflow that is versioned, reviewable, releasable, and rollback-friendly, so configuration drift is easier to control across machines.
 
 Current coverage:
@@ -27,6 +29,23 @@ Typical use cases:
 - Switch between home and company profiles without manual rewiring
 - Maintain a team baseline with traceable config changes and published releases
 
+## Current Status
+
+Already implemented:
+- `sync.ps1` generates a versioned snapshot under `~/.codex-config/live` based on `tool / os / profile`
+- `install-tooling.ps1` copies prompt and startup wrapper files from `tooling/` into `~/.codex` or `~/.claude`
+- `release.ps1` regenerates `manifest.lock.json`, `integration-history.json`, `CHANGELOG`, both READMEs, and the integration catalog
+
+Not fully implemented yet:
+- Real YAML merging for `base -> tool -> os -> profile`
+- Direct apply of `rules / mcp / plugins / skills` into tool-native live config directories
+- End-to-end automated coverage for the full `bootstrap / sync / apply` path
+
+Important usage notes:
+- `bootstrap.ps1` is effectively a thin wrapper around `sync.ps1`
+- `sync.ps1 -TargetVersion <tag>` currently runs `git fetch --tags` and `git checkout <tag>`, so it changes the current repo HEAD
+- "Installed to `~/.codex` / `~/.claude`" currently refers mainly to tooling assets, not the full config snapshot
+
 ## Quick Start
 
 Clone the repository first:
@@ -38,7 +57,7 @@ cd agent-config-hub
 
 ### I am a config user
 
-If you just want to sync this config to your machine, decide these two inputs first:
+If you just want to generate and inspect the current config snapshot on your machine, decide these two inputs first:
 
 - Which tool you use: `codex` or `claudex`
 - Which profile you are in: `company` or `home`
@@ -57,8 +76,9 @@ Sync to the current stable version:
 .\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool codex -Profile company
 ```
 
-Install target:
-- Config and startup wrapper files are installed to `~/.codex`
+Sync result:
+- The generated snapshot is written to `~/.codex-config/live`
+- Codex-specific prompt and startup wrapper files are installed to `~/.codex`
 
 #### Claudex users
 
@@ -74,8 +94,9 @@ Sync to the current stable version:
 .\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool claudex -Profile company
 ```
 
-Install target:
-- Config and startup wrapper files are installed to `~/.claude`
+Sync result:
+- The generated snapshot is written to `~/.codex-config/live`
+- Claudex-specific prompt and startup wrapper files are installed to `~/.claude`
 
 #### How to choose a profile
 
@@ -87,6 +108,10 @@ If you have already initialized once and only want to switch profiles or upgrade
 ```powershell
 .\scripts\sync.ps1 -TargetVersion v2026.04.10.5 -Tool codex -Profile home
 ```
+
+Notes:
+- `sync` does not yet merge and apply `rules / mcp / plugins / skills` directly into the tool-native runtime directories
+- It currently generates a repository snapshot first, then installs the startup-related files from `tooling/`
 
 ### I am a repository maintainer
 
@@ -106,9 +131,13 @@ If you maintain this repo and need to publish a new version after config changes
 - Maintainer conventions and tooling notes: `docs/maintainer-guide.md`
 - Design and planning records: `docs/superpowers/specs/`, `docs/superpowers/plans/`
 
-## Merge Priority
+## Declared Config Layering
 
 `base -> tool -> os -> profile -> local.override`
+
+Notes:
+- This is the intended repository-level layering model
+- The current scripts preserve these layers and metadata, but do not yet perform the final merged render
 
 ## Integration Inventory
 
