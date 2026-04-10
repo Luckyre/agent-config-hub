@@ -36,3 +36,4 @@
 - `tooling/claudex/prompts/global-style.md`：Claude / Claudex 侧复用的全局协作风格源文件。
 - `tooling/claudex/start-claude.ps1`：启动 `claude.exe` 时通过 `--append-system-prompt` 注入全局 style prompt 的包装脚本模板。
 - `configs/tools/claudex.yaml` 当前映射到本机实际配置根目录 `~/.claude`，而不是 `~/.claudex`。
+- `scripts/install-tooling.ps1`：将仓库中的 tooling 资源安装到本机真实目录；`scripts/sync.ps1` 完成 live 配置更新后会自动调用。

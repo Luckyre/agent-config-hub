@@ -16,6 +16,7 @@ Set-StrictMode -Version Latest
 
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
 Set-Location $repoRoot
+$installToolingScript = Join-Path $PSScriptRoot 'install-tooling.ps1'
 
 $isWindows = $false
 if ($PSVersionTable.PSVersion.Major -ge 6) {
@@ -43,6 +44,10 @@ $requiredPaths = @(
 
 foreach ($p in $requiredPaths) {
   if (!(Test-Path $p)) { throw "Required path missing: $p" }
+}
+
+if (!(Test-Path $installToolingScript)) {
+  throw "Required path missing: $installToolingScript"
 }
 
 New-Item -ItemType Directory -Force -Path $stateRoot, $backupRoot, $generatedRoot | Out-Null
@@ -144,6 +149,8 @@ try {
     lastSyncAt = (Get-Date).ToString('s')
   }
   $state | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 $stateFile
+
+  & $installToolingScript -Tool $Tool -SourceRoot (Join-Path $renderDir 'tooling') | Out-Null
 
   Write-Output "Sync succeeded: tool=$Tool os=$osName profile=$Profile version=$gitVersion"
 }
