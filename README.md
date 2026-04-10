@@ -57,6 +57,21 @@ cd agent-config-hub
 
 `base -> tool -> os -> profile -> local.override`
 
+## Markdown 编写约定
+
+- 标题层级最多使用到 `###`，避免目录层级过深。
+- 常规说明优先用短段落或列表；同级列表保持同一语气与句式。
+- 只有在“需要横向对比”时才使用表格，纯说明性内容优先列表。
+- 代码、命令、路径统一使用 fenced code block 或反引号标记。
+- 表情可少量用于提示性场景，如 `📌`、`🆕`、`🛠`、`📘`，不要给每一项都加表情。
+- 状态标签建议固定样式，避免同一文档内颜色和命名频繁变化。
+
+### 推荐标签样式
+
+- `<span style="color:#d9480f;font-weight:600;">NEW</span>`：本版本刚新增，适合标记新接入能力。
+- `<span style="color:#1d4ed8;font-weight:600;">INFO</span>`：补充说明或使用提示。
+- `<span style="color:#15803d;font-weight:600;">STABLE</span>`：已稳定、可长期依赖的内容。
+
 ## 集成能力清单
 
 - MCP 服务定义：`mcp/servers.yaml`
@@ -73,14 +88,20 @@ cd agent-config-hub
 
 ### MCP 能力枚举
 
+说明：这里枚举的是每个 MCP 服务在当前配置里实际暴露的能力项，而不只是服务名称。
+
 - `[example-local]` Example inspection: Exposes inspection endpoints for local debugging. (`introduced: v2026.04.10.2`)
 - `[example-local]` Local example execution: Runs the bundled local example server over stdio. (`introduced: v2026.04.10.2`)
 
 ### Plugins 能力枚举
 
+说明：这里枚举的是每个 Plugin 当前接入后的能力动作，而不只是注册表中的插件条目。
+
 - `[sample.plugin]` Local plugin install: Makes the sample plugin available from the local registry. (`introduced: v2026.04.10.2`)
 
 ### Skills 能力枚举
+
+说明：这里枚举的是每个 Skill 可执行的能力动作，并附带中文注解，便于按能力理解而不是只看 Skill 名称。
 
 - `[OpenSpec Apply Change]` Change context loading <span style="color:#d9480f;font-weight:600;">NEW</span>: Reads proposal, design, specs, and task context before implementation starts. (`introduced: v2026.04.10.5`)
 - `[OpenSpec Apply Change]` Change task implementation <span style="color:#d9480f;font-weight:600;">NEW</span>: Executes pending OpenSpec tasks and updates task completion status during implementation. (`introduced: v2026.04.10.5`)
@@ -90,6 +111,12 @@ cd agent-config-hub
 - `[OpenSpec Explore]` Spec-aware discovery <span style="color:#d9480f;font-weight:600;">NEW</span>: Connects exploration results back to OpenSpec proposals, designs, and specs when useful. (`introduced: v2026.04.10.5`)
 - `[OpenSpec Propose]` Change scaffolding <span style="color:#d9480f;font-weight:600;">NEW</span>: Creates a new OpenSpec change directory and prepares artifact generation order. (`introduced: v2026.04.10.5`)
 - `[OpenSpec Propose]` Proposal artifact generation <span style="color:#d9480f;font-weight:600;">NEW</span>: Generates proposal, design, and task files required to make a change implementation-ready. (`introduced: v2026.04.10.5`)
+
+中文注解：
+- `OpenSpec Apply Change`：加载变更上下文并按任务推进实现。
+- `OpenSpec Archive Change`：校验完成状态并归档已落地变更。
+- `OpenSpec Explore`：在实现前做需求、边界和权衡探索。
+- `OpenSpec Propose`：为新变更生成 proposal / design / tasks 基础骨架。
 
 > 标记说明：带有 `<span style="color:#d9480f;font-weight:600;">NEW</span>` 的能力表示“相对上一个 release tag 本次刚新增”。
 
