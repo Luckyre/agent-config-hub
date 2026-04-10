@@ -2,14 +2,29 @@
 
 Language: [中文](README.md) | English
 
-Git-based centralized configuration for multi-device sync across:
+A centralized Agent configuration repository for multiple devices, tools, and runtime profiles.
+
+The goal is not just to store config files. This repo puts `rules`, `mcp`, `plugins`, `skills`, and runtime `configs` into a single workflow that is versioned, reviewable, releasable, and rollback-friendly, so configuration drift is easier to control across machines.
+
+Current coverage:
 - Tools: `codex`, `claudex`
 - OS: `windows`, `macos`
 - Profiles: `company`, `home`
 
+Core capabilities:
+- Git-based distribution and auditability for configuration assets
+- `bootstrap` / `sync` / `release` scripts for setup, version-pinned sync, and formal publishing
+- Structured capability inventories and release tracking for `MCP / Plugins / Skills`
+- Version locks and capability history so each release can state exactly what it contains
+
 This repository follows a hybrid version strategy:
 - External: single repo release tag per change
 - Internal: reserved component lock fields in `manifests/manifest.lock.json`
+
+Typical use cases:
+- Keep Agent configuration consistent across personal devices
+- Switch between home and company profiles without manual rewiring
+- Maintain a team baseline with traceable config changes and published releases
 
 ## Quick Start
 
