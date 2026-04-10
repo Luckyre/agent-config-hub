@@ -1,0 +1,13 @@
+﻿{
+  "repoVersion": "v0.0.0",
+  "generatedAt": "1970-01-01T00:00:00Z",
+  "rulesVersion": "v0.0.0",
+  "mcpVersion": "v0.0.0",
+  "pluginsVersion": "v0.0.0",
+  "skillsVersion": "v0.0.0",
+  "compatibility": {
+    "tools": ["codex", "claudex"],
+    "os": ["windows", "macos"]
+  },
+  "files": []
+}

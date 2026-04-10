@@ -1,0 +1,4 @@
+﻿profile: home
+network:
+  proxyEnabled: false
+  mirror: public

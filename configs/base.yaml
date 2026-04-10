@@ -1,0 +1,11 @@
+﻿version: 1
+settings:
+  syncMode: manual-target-first
+  validateBeforeApply: true
+  rollbackOnFailure: true
+  mergePriority:
+    - base
+    - tool
+    - os
+    - profile
+    - local.override

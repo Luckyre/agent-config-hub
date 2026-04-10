@@ -1,0 +1,10 @@
+﻿tool: codex
+paths:
+  configRoot:
+    windows: "%USERPROFILE%\\.codex"
+    macos: "~/.codex"
+features:
+  rules: true
+  mcp: true
+  plugins: true
+  skills: true

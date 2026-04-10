@@ -1,0 +1,4 @@
+﻿plugins:
+  - id: sample.plugin
+    enabled: true
+    source: local

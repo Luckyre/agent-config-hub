@@ -1,0 +1,6 @@
+﻿servers:
+  - name: example-local
+    transport: stdio
+    command: node
+    args:
+      - ./mcp/example-server.js

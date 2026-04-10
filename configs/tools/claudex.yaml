@@ -1,0 +1,10 @@
+﻿tool: claudex
+paths:
+  configRoot:
+    windows: "%USERPROFILE%\\.claudex"
+    macos: "~/.claudex"
+features:
+  rules: true
+  mcp: true
+  plugins: true
+  skills: true
