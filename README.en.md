@@ -42,6 +42,34 @@ cd agent-config-hub
 
 `base -> tool -> os -> profile -> local.override`
 
+## Integration Inventory
+
+- MCP servers: `mcp/servers.yaml`
+- Plugins: `plugins/registry.yaml`
+- Skills bundle: `skills/README.md`
+- Version lock: `manifests/manifest.lock.json`
+- Device version selection guide: `docs/integration-catalog.md`
+
+## Current Version Matrix
+
+| Component | Version |
+| --- | --- |
+| repo | v2026.04.10.1 |
+| rules | v2026.04.10.1 |
+| mcp | v2026.04.10.1 |
+| plugins | v2026.04.10.1 |
+| skills | v2026.04.10.1 |
+
+## Release Iteration Rule
+
+1. Update `rules/`, `mcp/`, `plugins/`, `skills/`, `configs/` as needed.
+2. Run `.\scripts\release.ps1 -Notes "<what changed>"`.
+3. The release script updates:
+   - `manifests/manifest.lock.json`
+   - `CHANGELOG.md` (with versions + MCP/Plugins/Skills summary)
+   - `docs/integration-catalog.md`
+4. Push commit and tags: `git push origin HEAD --tags`.
+
 ## Docs
 
 - English design: `docs/superpowers/specs/2026-04-09-codex-config-design.md`
