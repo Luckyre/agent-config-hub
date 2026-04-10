@@ -43,6 +43,9 @@ try {
   if (-not (Select-String -Path 'docs/integration-catalog.md' -Pattern 'Plugin Capabilities' -Quiet)) {
     throw 'Expected plugin capabilities in integration catalog.'
   }
+  if (-not (Select-String -Path 'docs/integration-catalog.md' -Pattern '`openspec-apply-change` \| OpenSpec Apply Change' -Quiet)) {
+    throw 'Expected structured skills catalog rows instead of unevaluated PowerShell expressions.'
+  }
 }
 finally {
   foreach ($relativePath in $pathsToRestore) {

@@ -91,7 +91,16 @@ function Get-PreviousReleaseVersion {
     [string]$CurrentVersion
   )
 
-  $tags = @(git tag --sort=-version:refname)
+  $tags = @()
+  $remoteHead = (& git rev-parse --verify origin/master 2>$null)
+  if ($LASTEXITCODE -eq 0 -and $remoteHead) {
+    $tags = @(git tag --merged origin/master --sort=-version:refname)
+  }
+
+  if (-not $tags) {
+    $tags = @(git tag --sort=-version:refname)
+  }
+
   if (-not $tags) {
     return $null
   }
@@ -200,7 +209,7 @@ function Write-IntegrationCatalog {
     $lines += '- none'
   } else {
     foreach ($skill in $SkillsCatalog) {
-      $lines += "- `$($skill.id)` | $($skill.name) | $($skill.summary)"
+      $lines += ('- `{0}` | {1} | {2}' -f $skill.id, $skill.name, $skill.summary)
     }
   }
 
