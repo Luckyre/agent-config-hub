@@ -1,10 +1,10 @@
 ﻿{
-    "repoVersion":  "v2026.04.10.2",
-    "generatedAt":  "2026-04-10T03:10:43Z",
-    "rulesVersion":  "v2026.04.10.2",
-    "mcpVersion":  "v2026.04.10.2",
-    "pluginsVersion":  "v2026.04.10.2",
-    "skillsVersion":  "v2026.04.10.2",
+    "repoVersion":  "v2026.04.10.3",
+    "generatedAt":  "2026-04-10T04:26:12Z",
+    "rulesVersion":  "v2026.04.10.3",
+    "mcpVersion":  "v2026.04.10.3",
+    "pluginsVersion":  "v2026.04.10.3",
+    "skillsVersion":  "v2026.04.10.3",
     "compatibility":  {
                           "tools":  [
                                         "codex",
@@ -58,11 +58,11 @@
                   },
                   {
                       "path":  "skills\\catalog.yaml",
-                      "sha256":  "9e99da9542b3b246b87d5946d6c23296bacdd8c0d52944e19d74b68d9b4ce83a"
+                      "sha256":  "8c17bc33ac1abef08def18e5abae08216849a75f9e7984e2349f8ec41f3d9f61"
                   },
                   {
                       "path":  "skills\\README.md",
-                      "sha256":  "bf15ab749d6f6b9d22dcc4e4932099a2d783aeeee6c1b21a60649b906a181155"
+                      "sha256":  "1ade404ed5d52124a4df31c4498bf248b49359516a2a3f7c0d9515ac3dd8746a"
                   }
               ]
 }
