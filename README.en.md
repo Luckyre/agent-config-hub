@@ -53,6 +53,10 @@ cd agent-config-hub
 .\scripts\release.ps1 -Notes "update rules and mcp servers"
 ```
 
+Installed targets:
+- `-Tool codex`: installs to `~/.codex`
+- `-Tool claudex`: installs to `~/.claude`
+
 ## Merge Priority
 
 `base -> tool -> os -> profile -> local.override`
