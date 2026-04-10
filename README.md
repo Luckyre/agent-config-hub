@@ -90,27 +90,27 @@ cd agent-config-hub
 
 说明：这里枚举的是每个 MCP 服务在当前配置里实际暴露的能力项，而不只是服务名称。
 
-- `[example-local]` Example inspection: Exposes inspection endpoints for local debugging. (`introduced: v2026.04.10.2`)
-- `[example-local]` Local example execution: Runs the bundled local example server over stdio. (`introduced: v2026.04.10.2`)
+- `[example-local]` Example inspection：暴露本地调试所需的 inspection 能力入口。(`introduced: v2026.04.10.2`)
+- `[example-local]` Local example execution：通过 stdio 运行仓库内置的本地示例服务。(`introduced: v2026.04.10.2`)
 
 ### Plugins 能力枚举
 
 说明：这里枚举的是每个 Plugin 当前接入后的能力动作，而不只是注册表中的插件条目。
 
-- `[sample.plugin]` Local plugin install: Makes the sample plugin available from the local registry. (`introduced: v2026.04.10.2`)
+- `[sample.plugin]` Local plugin install：使示例插件可从本地 registry 直接安装和使用。(`introduced: v2026.04.10.2`)
 
 ### Skills 能力枚举
 
 说明：这里枚举的是每个 Skill 可执行的能力动作，并附带中文注解，便于按能力理解而不是只看 Skill 名称。
 
-- `[OpenSpec Apply Change]` Change context loading <span style="color:#d9480f;font-weight:600;">NEW</span>: Reads proposal, design, specs, and task context before implementation starts. (`introduced: v2026.04.10.5`)
-- `[OpenSpec Apply Change]` Change task implementation <span style="color:#d9480f;font-weight:600;">NEW</span>: Executes pending OpenSpec tasks and updates task completion status during implementation. (`introduced: v2026.04.10.5`)
-- `[OpenSpec Archive Change]` Change archival <span style="color:#d9480f;font-weight:600;">NEW</span>: Moves completed changes into the archive path with a dated archive location. (`introduced: v2026.04.10.5`)
-- `[OpenSpec Archive Change]` Completion verification <span style="color:#d9480f;font-weight:600;">NEW</span>: Checks artifact state, task completion, and delta spec sync state before archiving. (`introduced: v2026.04.10.5`)
-- `[OpenSpec Explore]` Problem exploration <span style="color:#d9480f;font-weight:600;">NEW</span>: Investigates requirements, tradeoffs, and codebase context before implementation. (`introduced: v2026.04.10.5`)
-- `[OpenSpec Explore]` Spec-aware discovery <span style="color:#d9480f;font-weight:600;">NEW</span>: Connects exploration results back to OpenSpec proposals, designs, and specs when useful. (`introduced: v2026.04.10.5`)
-- `[OpenSpec Propose]` Change scaffolding <span style="color:#d9480f;font-weight:600;">NEW</span>: Creates a new OpenSpec change directory and prepares artifact generation order. (`introduced: v2026.04.10.5`)
-- `[OpenSpec Propose]` Proposal artifact generation <span style="color:#d9480f;font-weight:600;">NEW</span>: Generates proposal, design, and task files required to make a change implementation-ready. (`introduced: v2026.04.10.5`)
+- `[OpenSpec Apply Change]` Change context loading <span style="color:#d9480f;font-weight:600;">NEW</span>：在实现开始前读取 proposal、design、specs 与 task 上下文。(`introduced: v2026.04.10.5`)
+- `[OpenSpec Apply Change]` Change task implementation <span style="color:#d9480f;font-weight:600;">NEW</span>：执行待处理的 OpenSpec tasks，并在实现过程中更新完成状态。(`introduced: v2026.04.10.5`)
+- `[OpenSpec Archive Change]` Change archival <span style="color:#d9480f;font-weight:600;">NEW</span>：将已完成的 change 按日期归档到 archive 路径。(`introduced: v2026.04.10.5`)
+- `[OpenSpec Archive Change]` Completion verification <span style="color:#d9480f;font-weight:600;">NEW</span>：在归档前检查 artifact 状态、task 完成度与 delta spec 同步情况。(`introduced: v2026.04.10.5`)
+- `[OpenSpec Explore]` Problem exploration <span style="color:#d9480f;font-weight:600;">NEW</span>：在实现前探索需求、权衡点与代码上下文。(`introduced: v2026.04.10.5`)
+- `[OpenSpec Explore]` Spec-aware discovery <span style="color:#d9480f;font-weight:600;">NEW</span>：在合适时把探索结果回连到 OpenSpec proposals、designs 与 specs。(`introduced: v2026.04.10.5`)
+- `[OpenSpec Propose]` Change scaffolding <span style="color:#d9480f;font-weight:600;">NEW</span>：创建新的 OpenSpec change 目录，并准备后续 artifact 生成顺序。(`introduced: v2026.04.10.5`)
+- `[OpenSpec Propose]` Proposal artifact generation <span style="color:#d9480f;font-weight:600;">NEW</span>：生成让 change 进入可实现状态所需的 proposal、design 与 task 文件。(`introduced: v2026.04.10.5`)
 
 中文注解：
 - `OpenSpec Apply Change`：加载变更上下文并按任务推进实现。
