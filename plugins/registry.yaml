@@ -2,3 +2,7 @@
   - id: sample.plugin
     enabled: true
     source: local
+    capabilities:
+      - id: plugin.sample.install
+        label: Local plugin install
+        summary: Makes the sample plugin available from the local registry.

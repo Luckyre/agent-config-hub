@@ -4,3 +4,10 @@
     command: node
     args:
       - ./mcp/example-server.js
+    capabilities:
+      - id: mcp.example.execute
+        label: Local example execution
+        summary: Runs the bundled local example server over stdio.
+      - id: mcp.example.inspect
+        label: Example inspection
+        summary: Exposes inspection endpoints for local debugging.
