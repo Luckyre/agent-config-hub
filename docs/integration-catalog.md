@@ -3,6 +3,12 @@
 Last Updated (UTC): 2026-04-10T03:10:43Z
 Current Repo Version: v2026.04.10.2
 
+## About This Catalog
+
+- This page is the release-facing inventory for the repository. It answers three questions: what the current version contains, which integrations are enabled, and which capabilities were newly introduced in the latest release.
+- The version matrix is sourced from `manifests/manifest.lock.json`. MCP, Plugin, and Skill details are sourced from `mcp/servers.yaml`, `plugins/registry.yaml`, and `skills/catalog.yaml`.
+- A capability marked with `<span style="color:#d9480f;font-weight:600;">NEW</span>` means it was newly introduced relative to the previous release tag. The `introduced` field records the first release version in which this catalog started tracking that capability.
+
 ## Version Matrix
 
 | Component | Version | Source |
