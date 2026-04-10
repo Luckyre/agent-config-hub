@@ -14,6 +14,7 @@ Current coverage:
 Core capabilities:
 - Git-based distribution and auditability for configuration assets
 - `bootstrap` / `sync` / `release` scripts for setup, version-pinned sync, and formal publishing
+- Automatic installation of `codex / claude` global prompts and startup wrappers during sync
 - Structured capability inventories and release tracking for `MCP / Plugins / Skills`
 - Version locks and capability history so each release can state exactly what it contains
 
@@ -71,7 +72,8 @@ Installed targets:
 - Skill capability enums: `skills/catalog.yaml`
 - Capability history: `manifests/integration-history.json`
 - Version lock: `manifests/manifest.lock.json`
-- Device version selection guide: `docs/integration-catalog.md`
+- Integration catalog: `docs/integration-catalog.md`
+- Maintainer guide: `docs/maintainer-guide.md`
 
 <!-- BEGIN:CAPABILITY-CATALOG -->
 
@@ -108,17 +110,6 @@ Installed targets:
 | mcp | v2026.04.10.5 |
 | plugins | v2026.04.10.5 |
 | skills | v2026.04.10.5 |
-## Release Iteration Rule
-
-1. Update `rules/`, `mcp/`, `plugins/`, `skills/`, `configs/` as needed.
-2. Run `.\scripts\release.ps1 -Notes "<what changed>"`.
-3. The release script updates:
-   - `manifests/manifest.lock.json`
-   - `manifests/integration-history.json`
-   - `CHANGELOG.md` (with versions + MCP/Plugins/Skills summary)
-   - `docs/integration-catalog.md`
-   - managed capability sections in `README.md` and `README.en.md`
-4. Push commit and tags: `git push origin HEAD --tags`.
 
 
 
