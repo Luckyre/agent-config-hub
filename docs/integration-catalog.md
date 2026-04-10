@@ -1,17 +1,17 @@
 ﻿# Integration Catalog
 
-Last Updated (UTC): 2026-04-10T04:26:12Z
-Current Repo Version: v2026.04.10.3
+Last Updated (UTC): 2026-04-10T04:28:38Z
+Current Repo Version: v2026.04.10.4
 
 ## Version Matrix
 
 | Component | Version | Source |
 | --- | --- | --- |
-| repo | v2026.04.10.3 | manifests/manifest.lock.json |
-| rules | v2026.04.10.3 | rules/base.md |
-| mcp | v2026.04.10.3 | mcp/servers.yaml |
-| plugins | v2026.04.10.3 | plugins/registry.yaml |
-| skills | v2026.04.10.3 | skills/catalog.yaml |
+| repo | v2026.04.10.4 | manifests/manifest.lock.json |
+| rules | v2026.04.10.4 | rules/base.md |
+| mcp | v2026.04.10.4 | mcp/servers.yaml |
+| plugins | v2026.04.10.4 | plugins/registry.yaml |
+| skills | v2026.04.10.4 | skills/catalog.yaml |
 
 ## MCP Servers
 
@@ -21,7 +21,10 @@ Current Repo Version: v2026.04.10.3
 
 ## Skills Catalog
 
-- $(@{id=openspec-apply-change; name=OpenSpec Propose; source=.codex/skills/openspec-propose; summary=Implement tasks from an existing OpenSpec change and advance task completion.; capabilities=System.Object[]}.id) | OpenSpec Propose | Implement tasks from an existing OpenSpec change and advance task completion.
+- $(@{id=openspec-apply-change; name=OpenSpec Apply Change; source=.codex/skills/openspec-apply-change; summary=Implement tasks from an existing OpenSpec change and advance task completion.; capabilities=System.Object[]}.id) | OpenSpec Apply Change | Implement tasks from an existing OpenSpec change and advance task completion.
+- $(@{id=openspec-archive-change; name=OpenSpec Archive Change; source=.codex/skills/openspec-archive-change; summary=Archive a completed OpenSpec change after checking artifacts, tasks, and sync status.; capabilities=System.Object[]}.id) | OpenSpec Archive Change | Archive a completed OpenSpec change after checking artifacts, tasks, and sync status.
+- $(@{id=openspec-explore; name=OpenSpec Explore; source=.codex/skills/openspec-explore; summary=Explore ideas, investigate problems, and clarify requirements without implementing code.; capabilities=System.Object[]}.id) | OpenSpec Explore | Explore ideas, investigate problems, and clarify requirements without implementing code.
+- $(@{id=openspec-propose; name=OpenSpec Propose; source=.codex/skills/openspec-propose; summary=Create a new OpenSpec change with proposal, design, and task artifacts in one pass.; capabilities=System.Object[]}.id) | OpenSpec Propose | Create a new OpenSpec change with proposal, design, and task artifacts in one pass.
 
 ## Plugins
 
@@ -49,64 +52,42 @@ Current Repo Version: v2026.04.10.3
 
 ## Skill Capabilities
 
-- `[OpenSpec Propose]` **** <span style="color:#d9480f;font-weight:600;">NEW</span>
-  - id: `openspec-archive-change`
-  - summary: Archive a completed OpenSpec change after checking artifacts, tasks, and sync status.
-  - introduced: `v2026.04.10.3`
-- `[OpenSpec Propose]` **** <span style="color:#d9480f;font-weight:600;">NEW</span>
-  - id: `openspec-propose`
-  - summary: Create a new OpenSpec change with proposal, design, and task artifacts in one pass.
-  - introduced: `v2026.04.10.3`
-- `[OpenSpec Propose]` **** <span style="color:#d9480f;font-weight:600;">NEW</span>
-  - id: `openspec-explore`
-  - summary: Explore ideas, investigate problems, and clarify requirements without implementing code.
-  - introduced: `v2026.04.10.3`
-- `[OpenSpec Propose]` **Change archival** <span style="color:#d9480f;font-weight:600;">NEW</span>
-  - id: `skill.openspec.archive.finalize-change`
-  - summary: Moves completed changes into the archive path with a dated archive location.
-  - introduced: `v2026.04.10.3`
-- `[OpenSpec Propose]` **Change context loading** <span style="color:#d9480f;font-weight:600;">NEW</span>
+- `[OpenSpec Apply Change]` **Change context loading**
   - id: `skill.openspec.apply.context-loading`
   - summary: Reads proposal, design, specs, and task context before implementation starts.
   - introduced: `v2026.04.10.3`
-- `[OpenSpec Propose]` **Change scaffolding** <span style="color:#d9480f;font-weight:600;">NEW</span>
-  - id: `skill.openspec.propose.change-scaffold`
-  - summary: Creates a new OpenSpec change directory and prepares artifact generation order.
-  - introduced: `v2026.04.10.3`
-- `[OpenSpec Propose]` **Change task implementation** <span style="color:#d9480f;font-weight:600;">NEW</span>
+- `[OpenSpec Apply Change]` **Change task implementation**
   - id: `skill.openspec.apply.implement-tasks`
   - summary: Executes pending OpenSpec tasks and updates task completion status during implementation.
   - introduced: `v2026.04.10.3`
-- `[OpenSpec Propose]` **Completion verification** <span style="color:#d9480f;font-weight:600;">NEW</span>
+- `[OpenSpec Archive Change]` **Change archival**
+  - id: `skill.openspec.archive.finalize-change`
+  - summary: Moves completed changes into the archive path with a dated archive location.
+  - introduced: `v2026.04.10.3`
+- `[OpenSpec Archive Change]` **Completion verification**
   - id: `skill.openspec.archive.completion-check`
   - summary: Checks artifact state, task completion, and delta spec sync state before archiving.
   - introduced: `v2026.04.10.3`
-- `[OpenSpec Propose]` **Problem exploration** <span style="color:#d9480f;font-weight:600;">NEW</span>
+- `[OpenSpec Explore]` **Problem exploration**
   - id: `skill.openspec.explore.problem-discovery`
   - summary: Investigates requirements, tradeoffs, and codebase context before implementation.
   - introduced: `v2026.04.10.3`
-- `[OpenSpec Propose]` **Proposal artifact generation** <span style="color:#d9480f;font-weight:600;">NEW</span>
-  - id: `skill.openspec.propose.artifact-generation`
-  - summary: Generates proposal, design, and task files required to make a change implementation-ready.
-  - introduced: `v2026.04.10.3`
-- `[OpenSpec Propose]` **Spec-aware discovery** <span style="color:#d9480f;font-weight:600;">NEW</span>
+- `[OpenSpec Explore]` **Spec-aware discovery**
   - id: `skill.openspec.explore.spec-capture`
   - summary: Connects exploration results back to OpenSpec proposals, designs, and specs when useful.
+  - introduced: `v2026.04.10.3`
+- `[OpenSpec Propose]` **Change scaffolding**
+  - id: `skill.openspec.propose.change-scaffold`
+  - summary: Creates a new OpenSpec change directory and prepares artifact generation order.
+  - introduced: `v2026.04.10.3`
+- `[OpenSpec Propose]` **Proposal artifact generation**
+  - id: `skill.openspec.propose.artifact-generation`
+  - summary: Generates proposal, design, and task files required to make a change implementation-ready.
   - introduced: `v2026.04.10.3`
 
 ## Release Diff Summary
 
-- [Skill] `OpenSpec Propose` -> `` <span style="color:#d9480f;font-weight:600;">NEW</span>
-- [Skill] `OpenSpec Propose` -> `` <span style="color:#d9480f;font-weight:600;">NEW</span>
-- [Skill] `OpenSpec Propose` -> `` <span style="color:#d9480f;font-weight:600;">NEW</span>
-- [Skill] `OpenSpec Propose` -> `Change archival` <span style="color:#d9480f;font-weight:600;">NEW</span>
-- [Skill] `OpenSpec Propose` -> `Change context loading` <span style="color:#d9480f;font-weight:600;">NEW</span>
-- [Skill] `OpenSpec Propose` -> `Change scaffolding` <span style="color:#d9480f;font-weight:600;">NEW</span>
-- [Skill] `OpenSpec Propose` -> `Change task implementation` <span style="color:#d9480f;font-weight:600;">NEW</span>
-- [Skill] `OpenSpec Propose` -> `Completion verification` <span style="color:#d9480f;font-weight:600;">NEW</span>
-- [Skill] `OpenSpec Propose` -> `Problem exploration` <span style="color:#d9480f;font-weight:600;">NEW</span>
-- [Skill] `OpenSpec Propose` -> `Proposal artifact generation` <span style="color:#d9480f;font-weight:600;">NEW</span>
-- [Skill] `OpenSpec Propose` -> `Spec-aware discovery` <span style="color:#d9480f;font-weight:600;">NEW</span>
+- No newly introduced MCP or Skill capabilities in this release.
 
 ## Release Rule
 

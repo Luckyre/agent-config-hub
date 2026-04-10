@@ -59,8 +59,8 @@
                                                                       "label":  "Change context loading",
                                                                       "summary":  "Reads proposal, design, specs, and task context before implementation starts.",
                                                                       "kind":  "skill",
-                                                                      "owner":  "OpenSpec Propose",
-                                                                      "ownerSource":  ".codex/skills/openspec-propose",
+                                                                      "owner":  "OpenSpec Apply Change",
+                                                                      "ownerSource":  ".codex/skills/openspec-apply-change",
                                                                       "introducedIn":  "v2026.04.10.3"
                                                                   },
                          "skill.openspec.apply.implement-tasks":  {
@@ -68,8 +68,8 @@
                                                                       "label":  "Change task implementation",
                                                                       "summary":  "Executes pending OpenSpec tasks and updates task completion status during implementation.",
                                                                       "kind":  "skill",
-                                                                      "owner":  "OpenSpec Propose",
-                                                                      "ownerSource":  ".codex/skills/openspec-propose",
+                                                                      "owner":  "OpenSpec Apply Change",
+                                                                      "ownerSource":  ".codex/skills/openspec-apply-change",
                                                                       "introducedIn":  "v2026.04.10.3"
                                                                   },
                          "skill.openspec.archive.completion-check":  {
@@ -77,8 +77,8 @@
                                                                          "label":  "Completion verification",
                                                                          "summary":  "Checks artifact state, task completion, and delta spec sync state before archiving.",
                                                                          "kind":  "skill",
-                                                                         "owner":  "OpenSpec Propose",
-                                                                         "ownerSource":  ".codex/skills/openspec-propose",
+                                                                         "owner":  "OpenSpec Archive Change",
+                                                                         "ownerSource":  ".codex/skills/openspec-archive-change",
                                                                          "introducedIn":  "v2026.04.10.3"
                                                                      },
                          "skill.openspec.archive.finalize-change":  {
@@ -86,8 +86,8 @@
                                                                         "label":  "Change archival",
                                                                         "summary":  "Moves completed changes into the archive path with a dated archive location.",
                                                                         "kind":  "skill",
-                                                                        "owner":  "OpenSpec Propose",
-                                                                        "ownerSource":  ".codex/skills/openspec-propose",
+                                                                        "owner":  "OpenSpec Archive Change",
+                                                                        "ownerSource":  ".codex/skills/openspec-archive-change",
                                                                         "introducedIn":  "v2026.04.10.3"
                                                                     },
                          "skill.openspec.explore.problem-discovery":  {
@@ -95,8 +95,8 @@
                                                                           "label":  "Problem exploration",
                                                                           "summary":  "Investigates requirements, tradeoffs, and codebase context before implementation.",
                                                                           "kind":  "skill",
-                                                                          "owner":  "OpenSpec Propose",
-                                                                          "ownerSource":  ".codex/skills/openspec-propose",
+                                                                          "owner":  "OpenSpec Explore",
+                                                                          "ownerSource":  ".codex/skills/openspec-explore",
                                                                           "introducedIn":  "v2026.04.10.3"
                                                                       },
                          "skill.openspec.explore.spec-capture":  {
@@ -104,8 +104,8 @@
                                                                      "label":  "Spec-aware discovery",
                                                                      "summary":  "Connects exploration results back to OpenSpec proposals, designs, and specs when useful.",
                                                                      "kind":  "skill",
-                                                                     "owner":  "OpenSpec Propose",
-                                                                     "ownerSource":  ".codex/skills/openspec-propose",
+                                                                     "owner":  "OpenSpec Explore",
+                                                                     "ownerSource":  ".codex/skills/openspec-explore",
                                                                      "introducedIn":  "v2026.04.10.3"
                                                                  },
                          "skill.openspec.propose.artifact-generation":  {

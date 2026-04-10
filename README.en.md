@@ -44,7 +44,7 @@ cd agent-config-hub
 3. Sync to the current stable version:
 
 ```powershell
-.\scripts\sync.ps1 -TargetVersion v2026.04.10.3 -Tool codex -Profile home
+.\scripts\sync.ps1 -TargetVersion v2026.04.10.4 -Tool codex -Profile home
 ```
 
 4. Create a release after config updates:
@@ -82,17 +82,14 @@ cd agent-config-hub
 
 ### Skill Capabilities
 
-- `[OpenSpec Propose]`  <span style="color:#d9480f;font-weight:600;">NEW</span>: Archive a completed OpenSpec change after checking artifacts, tasks, and sync status. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]`  <span style="color:#d9480f;font-weight:600;">NEW</span>: Create a new OpenSpec change with proposal, design, and task artifacts in one pass. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]`  <span style="color:#d9480f;font-weight:600;">NEW</span>: Explore ideas, investigate problems, and clarify requirements without implementing code. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]` Change archival <span style="color:#d9480f;font-weight:600;">NEW</span>: Moves completed changes into the archive path with a dated archive location. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]` Change context loading <span style="color:#d9480f;font-weight:600;">NEW</span>: Reads proposal, design, specs, and task context before implementation starts. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]` Change scaffolding <span style="color:#d9480f;font-weight:600;">NEW</span>: Creates a new OpenSpec change directory and prepares artifact generation order. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]` Change task implementation <span style="color:#d9480f;font-weight:600;">NEW</span>: Executes pending OpenSpec tasks and updates task completion status during implementation. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]` Completion verification <span style="color:#d9480f;font-weight:600;">NEW</span>: Checks artifact state, task completion, and delta spec sync state before archiving. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]` Problem exploration <span style="color:#d9480f;font-weight:600;">NEW</span>: Investigates requirements, tradeoffs, and codebase context before implementation. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]` Proposal artifact generation <span style="color:#d9480f;font-weight:600;">NEW</span>: Generates proposal, design, and task files required to make a change implementation-ready. (`introduced: v2026.04.10.3`)
-- `[OpenSpec Propose]` Spec-aware discovery <span style="color:#d9480f;font-weight:600;">NEW</span>: Connects exploration results back to OpenSpec proposals, designs, and specs when useful. (`introduced: v2026.04.10.3`)
+- `[OpenSpec Apply Change]` Change context loading: Reads proposal, design, specs, and task context before implementation starts. (`introduced: v2026.04.10.3`)
+- `[OpenSpec Apply Change]` Change task implementation: Executes pending OpenSpec tasks and updates task completion status during implementation. (`introduced: v2026.04.10.3`)
+- `[OpenSpec Archive Change]` Change archival: Moves completed changes into the archive path with a dated archive location. (`introduced: v2026.04.10.3`)
+- `[OpenSpec Archive Change]` Completion verification: Checks artifact state, task completion, and delta spec sync state before archiving. (`introduced: v2026.04.10.3`)
+- `[OpenSpec Explore]` Problem exploration: Investigates requirements, tradeoffs, and codebase context before implementation. (`introduced: v2026.04.10.3`)
+- `[OpenSpec Explore]` Spec-aware discovery: Connects exploration results back to OpenSpec proposals, designs, and specs when useful. (`introduced: v2026.04.10.3`)
+- `[OpenSpec Propose]` Change scaffolding: Creates a new OpenSpec change directory and prepares artifact generation order. (`introduced: v2026.04.10.3`)
+- `[OpenSpec Propose]` Proposal artifact generation: Generates proposal, design, and task files required to make a change implementation-ready. (`introduced: v2026.04.10.3`)
 
 > Badge rule: items marked with `<span style="color:#d9480f;font-weight:600;">NEW</span>` were introduced in this release compared with the previous release tag.
 
@@ -102,11 +99,11 @@ cd agent-config-hub
 
 | Component | Version |
 | --- | --- |
-| repo | v2026.04.10.3 |
-| rules | v2026.04.10.3 |
-| mcp | v2026.04.10.3 |
-| plugins | v2026.04.10.3 |
-| skills | v2026.04.10.3 |
+| repo | v2026.04.10.4 |
+| rules | v2026.04.10.4 |
+| mcp | v2026.04.10.4 |
+| plugins | v2026.04.10.4 |
+| skills | v2026.04.10.4 |
 ## Release Iteration Rule
 
 1. Update `rules/`, `mcp/`, `plugins/`, `skills/`, `configs/` as needed.
@@ -118,5 +115,6 @@ cd agent-config-hub
    - `docs/integration-catalog.md`
    - managed capability sections in `README.md` and `README.en.md`
 4. Push commit and tags: `git push origin HEAD --tags`.
+
 
 
