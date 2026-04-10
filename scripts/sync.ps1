@@ -82,6 +82,7 @@ $copyMap = @(
   @{ src = 'mcp'; dst = 'mcp' },
   @{ src = 'plugins'; dst = 'plugins' },
   @{ src = 'skills'; dst = 'skills' },
+  @{ src = 'tooling'; dst = 'tooling' },
   @{ src = 'manifests/manifest.lock.json'; dst = 'manifests/manifest.lock.json' }
 )
 

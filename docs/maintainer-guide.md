@@ -28,3 +28,9 @@
    - `docs/integration-catalog.md`
    - `README.md` 与 `README.en.md` 中的能力枚举托管区块
 4. 推送提交与标签：`git push origin HEAD --tags`。
+
+## 全局工具资源
+
+- `tooling/codex/prompts/global-style.md`：Codex 全局协作风格的仓库内版本源文件。
+- `tooling/codex/start-codex.ps1`：启动 Codex 时注入全局 style prompt 的本地包装脚本模板。
+- 当前仓库只收编 `codex` 侧的 prompt 注入资源；`claudex` / `claude` 侧暂未配置等价的全局 prompt 自动注入链路。
