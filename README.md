@@ -58,6 +58,14 @@ cd agent-config-hub
 - `-Tool codex`：自动安装到 `~/.codex`
 - `-Tool claudex`：自动安装到 `~/.claude`
 
+## 文档地图
+
+- 快速上手：当前页 `README.md`
+- 集成能力总览：`docs/integration-catalog.md`
+- 版本变更记录：`CHANGELOG.md`
+- 维护约定与工具资源：`docs/maintainer-guide.md`
+- 设计与计划沉淀：`docs/superpowers/specs/`、`docs/superpowers/plans/`
+
 ## 配置合并优先级
 
 `base -> tool -> os -> profile -> local.override`
@@ -116,6 +124,3 @@ cd agent-config-hub
 | mcp | v2026.04.10.5 |
 | plugins | v2026.04.10.5 |
 | skills | v2026.04.10.5 |
-
-
-
