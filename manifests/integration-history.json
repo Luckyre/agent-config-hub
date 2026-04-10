@@ -1,31 +1,31 @@
 ﻿{
-  "capabilities": {
-    "mcp.example.execute": {
-      "id": "mcp.example.execute",
-      "label": "Local example execution",
-      "summary": "Runs the bundled local example server over stdio.",
-      "kind": "mcp",
-      "owner": "example-local",
-      "ownerSource": "mcp/servers.yaml",
-      "introducedIn": "v2026.04.10.1"
-    },
-    "mcp.example.inspect": {
-      "id": "mcp.example.inspect",
-      "label": "Example inspection",
-      "summary": "Exposes inspection endpoints for local debugging.",
-      "kind": "mcp",
-      "owner": "example-local",
-      "ownerSource": "mcp/servers.yaml",
-      "introducedIn": "v2026.04.10.1"
-    },
-    "plugin.sample.install": {
-      "id": "plugin.sample.install",
-      "label": "Local plugin install",
-      "summary": "Makes the sample plugin available from the local registry.",
-      "kind": "plugin",
-      "owner": "sample.plugin",
-      "ownerSource": "plugins/registry.yaml",
-      "introducedIn": "v2026.04.10.1"
-    }
-  }
+    "capabilities":  {
+                         "mcp.example.execute":  {
+                                                     "id":  "mcp.example.execute",
+                                                     "label":  "Local example execution",
+                                                     "summary":  "Runs the bundled local example server over stdio.",
+                                                     "kind":  "mcp",
+                                                     "owner":  "example-local",
+                                                     "ownerSource":  "mcp/servers.yaml",
+                                                     "introducedIn":  "v2026.04.10.1"
+                                                 },
+                         "mcp.example.inspect":  {
+                                                     "id":  "mcp.example.inspect",
+                                                     "label":  "Example inspection",
+                                                     "summary":  "Exposes inspection endpoints for local debugging.",
+                                                     "kind":  "mcp",
+                                                     "owner":  "example-local",
+                                                     "ownerSource":  "mcp/servers.yaml",
+                                                     "introducedIn":  "v2026.04.10.1"
+                                                 },
+                         "plugin.sample.install":  {
+                                                       "id":  "plugin.sample.install",
+                                                       "label":  "Local plugin install",
+                                                       "summary":  "Makes the sample plugin available from the local registry.",
+                                                       "kind":  "plugin",
+                                                       "owner":  "sample.plugin",
+                                                       "ownerSource":  "plugins/registry.yaml",
+                                                       "introducedIn":  "v2026.04.10.1"
+                                                   }
+                     }
 }

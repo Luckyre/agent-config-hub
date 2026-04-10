@@ -94,3 +94,4 @@ cd agent-config-hub
    - `docs/integration-catalog.md`
    - `README.md` 与 `README.en.md` 中的能力枚举托管区块
 4. 推送提交与标签：`git push origin HEAD --tags`。
+

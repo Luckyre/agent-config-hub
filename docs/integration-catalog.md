@@ -1,17 +1,17 @@
 ﻿# Integration Catalog
 
-Last Updated (UTC): 2026-04-10T00:55:24Z
-Current Repo Version: v2026.04.10.1
+Last Updated (UTC): 2026-04-10T03:10:43Z
+Current Repo Version: v2026.04.10.2
 
 ## Version Matrix
 
 | Component | Version | Source |
 | --- | --- | --- |
-| repo | v2026.04.10.1 | manifests/manifest.lock.json |
-| rules | v2026.04.10.1 | rules/base.md |
-| mcp | v2026.04.10.1 | mcp/servers.yaml |
-| plugins | v2026.04.10.1 | plugins/registry.yaml |
-| skills | v2026.04.10.1 | skills/catalog.yaml |
+| repo | v2026.04.10.2 | manifests/manifest.lock.json |
+| rules | v2026.04.10.2 | rules/base.md |
+| mcp | v2026.04.10.2 | mcp/servers.yaml |
+| plugins | v2026.04.10.2 | plugins/registry.yaml |
+| skills | v2026.04.10.2 | skills/catalog.yaml |
 
 ## MCP Servers
 

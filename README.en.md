@@ -94,3 +94,4 @@ cd agent-config-hub
    - `docs/integration-catalog.md`
    - managed capability sections in `README.md` and `README.en.md`
 4. Push commit and tags: `git push origin HEAD --tags`.
+
