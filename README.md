@@ -54,6 +54,10 @@ cd agent-config-hub
 .\scripts\release.ps1 -Notes "update rules and mcp servers"
 ```
 
+安装结果：
+- `-Tool codex`：自动安装到 `~/.codex`
+- `-Tool claudex`：自动安装到 `~/.claude`
+
 ## 配置合并优先级
 
 `base -> tool -> os -> profile -> local.override`
