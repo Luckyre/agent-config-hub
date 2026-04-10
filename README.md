@@ -1,4 +1,4 @@
-# agent-config-hub
+﻿# agent-config-hub
 
 语言: 中文 | [English](README.en.md)
 
@@ -44,11 +44,34 @@ cd agent-config-hub
 
 ## 集成能力清单
 
-- MCP 服务：`mcp/servers.yaml`
-- 插件清单：`plugins/registry.yaml`
+- MCP 服务定义：`mcp/servers.yaml`
+- MCP 能力枚举：`mcp/servers.yaml` 中的 `capabilities`
+- Plugin 清单：`plugins/registry.yaml`
+- Plugin 能力枚举：`plugins/registry.yaml` 中的 `capabilities`
 - Skills 清单：`skills/README.md`
+- Skills 能力枚举：`skills/catalog.yaml`
+- 能力历史记录：`manifests/integration-history.json`
 - 版本锁文件：`manifests/manifest.lock.json`
 - 设备选型总览：`docs/integration-catalog.md`
+
+<!-- BEGIN:CAPABILITY-CATALOG -->
+
+### MCP 能力枚举
+
+- `[example-local]` Example inspection <span style="color:#d9480f;font-weight:600;">NEW</span>: Exposes inspection endpoints for local debugging. (`introduced: v2026.04.10.1`)
+- `[example-local]` Local example execution <span style="color:#d9480f;font-weight:600;">NEW</span>: Runs the bundled local example server over stdio. (`introduced: v2026.04.10.1`)
+
+### Plugins 能力枚举
+
+- `[sample.plugin]` Local plugin install <span style="color:#d9480f;font-weight:600;">NEW</span>: Makes the sample plugin available from the local registry. (`introduced: v2026.04.10.1`)
+
+### Skills 能力枚举
+
+- 暂无托管 Skills 能力项。
+
+> 标记说明：带有 `<span style="color:#d9480f;font-weight:600;">NEW</span>` 的能力表示“相对上一个 release tag 本次刚新增”。
+
+<!-- END:CAPABILITY-CATALOG -->
 
 ## 当前版本映射
 
@@ -63,15 +86,11 @@ cd agent-config-hub
 ## 版本迭代要求（每次发布必做）
 
 1. 按需更新 `rules/`、`mcp/`、`plugins/`、`skills/`、`configs/`。
-2. 执行 `.\scripts\release.ps1 -Notes "<本次变更说明>"`。
+2. 执行 `\.\scripts\release.ps1 -Notes "<本次变更说明>"`。
 3. 发布脚本会自动更新：
    - `manifests/manifest.lock.json`
+   - `manifests/integration-history.json`
    - `CHANGELOG.md`（含版本矩阵与 MCP/Plugins/Skills 摘要）
    - `docs/integration-catalog.md`
+   - `README.md` 与 `README.en.md` 中的能力枚举托管区块
 4. 推送提交与标签：`git push origin HEAD --tags`。
-
-## 文档
-
-- 英文设计文档：`docs/superpowers/specs/2026-04-09-codex-config-design.md`
-- 中文设计文档：`docs/superpowers/specs/2026-04-09-codex-config-design.zh-CN.md`
-- 英文 README：`README.en.md`

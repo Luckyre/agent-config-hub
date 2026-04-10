@@ -1,4 +1,4 @@
-# agent-config-hub
+﻿# agent-config-hub
 
 Language: [中文](README.md) | English
 
@@ -44,11 +44,34 @@ cd agent-config-hub
 
 ## Integration Inventory
 
-- MCP servers: `mcp/servers.yaml`
-- Plugins: `plugins/registry.yaml`
+- MCP server definitions: `mcp/servers.yaml`
+- MCP capability enums: `mcp/servers.yaml` -> `capabilities`
+- Plugin registry: `plugins/registry.yaml`
+- Plugin capability enums: `plugins/registry.yaml` -> `capabilities`
 - Skills bundle: `skills/README.md`
+- Skill capability enums: `skills/catalog.yaml`
+- Capability history: `manifests/integration-history.json`
 - Version lock: `manifests/manifest.lock.json`
 - Device version selection guide: `docs/integration-catalog.md`
+
+<!-- BEGIN:CAPABILITY-CATALOG -->
+
+### MCP Capabilities
+
+- `[example-local]` Example inspection <span style="color:#d9480f;font-weight:600;">NEW</span>: Exposes inspection endpoints for local debugging. (`introduced: v2026.04.10.1`)
+- `[example-local]` Local example execution <span style="color:#d9480f;font-weight:600;">NEW</span>: Runs the bundled local example server over stdio. (`introduced: v2026.04.10.1`)
+
+### Plugin Capabilities
+
+- `[sample.plugin]` Local plugin install <span style="color:#d9480f;font-weight:600;">NEW</span>: Makes the sample plugin available from the local registry. (`introduced: v2026.04.10.1`)
+
+### Skill Capabilities
+
+- No managed skill capabilities.
+
+> Badge rule: items marked with `<span style="color:#d9480f;font-weight:600;">NEW</span>` were introduced in this release compared with the previous release tag.
+
+<!-- END:CAPABILITY-CATALOG -->
 
 ## Current Version Matrix
 
@@ -66,12 +89,8 @@ cd agent-config-hub
 2. Run `.\scripts\release.ps1 -Notes "<what changed>"`.
 3. The release script updates:
    - `manifests/manifest.lock.json`
+   - `manifests/integration-history.json`
    - `CHANGELOG.md` (with versions + MCP/Plugins/Skills summary)
    - `docs/integration-catalog.md`
+   - managed capability sections in `README.md` and `README.en.md`
 4. Push commit and tags: `git push origin HEAD --tags`.
-
-## Docs
-
-- English design: `docs/superpowers/specs/2026-04-09-codex-config-design.md`
-- Chinese design: `docs/superpowers/specs/2026-04-09-codex-config-design.zh-CN.md`
-- Chinese README: `README.md`
