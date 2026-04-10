@@ -17,3 +17,10 @@ if (!(Test-Path $syncScript)) {
 }
 
 & $syncScript -Tool $Tool -Profile $Profile -TargetVersion $TargetVersion
+
+$toolingTarget = switch ($Tool) {
+  'codex' { Join-Path $HOME '.codex' }
+  'claudex' { Join-Path $HOME '.claude' }
+}
+
+Write-Output "Bootstrap completed: global tooling installed to $toolingTarget"

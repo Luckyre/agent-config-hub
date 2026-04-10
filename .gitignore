@@ -5,8 +5,8 @@ generated/
 # per-machine overrides and secrets
 configs/local.override.yaml
 secrets.env
+.claude/settings.local.json
 
 # editor/system
 .DS_Store
 Thumbs.db
-
