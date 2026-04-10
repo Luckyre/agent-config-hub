@@ -1,47 +1,49 @@
 # agent-config-hub
 
-Git-based centralized configuration for multi-device sync across:
-- Tools: `codex`, `claudex`
-- OS: `windows`, `macos`
-- Profiles: `company`, `home`
+语言: 中文 | [English](README.en.md)
 
-This repository follows a hybrid version strategy:
-- External: single repo release tag per change
-- Internal: reserved component lock fields in `manifests/manifest.lock.json`
+基于 Git 的集中化配置仓库，用于多设备同步，覆盖：
+- 工具：`codex`、`claudex`
+- 系统：`windows`、`macos`
+- 环境：`company`、`home`
 
-## Quick Start
+本仓库采用折中版本策略：
+- 对外：每次变更发布整仓版本 `tag`
+- 对内：在 `manifests/manifest.lock.json` 预留组件锁字段
 
-1. Clone repository:
+## 快速开始
+
+1. 克隆仓库：
 
 ```powershell
 git clone https://github.com/Luckyre/agent-config-hub.git
 cd agent-config-hub
 ```
 
-2. Initialize local machine:
+2. 初始化本机：
 
 ```powershell
 .\scripts\bootstrap.ps1 -Tool codex -Profile company
 ```
 
-3. Sync to a specific version:
+3. 同步到指定版本：
 
 ```powershell
 .\scripts\sync.ps1 -TargetVersion v2026.04.10.1 -Tool codex -Profile home
 ```
 
-4. Create a release after config updates:
+4. 配置更新后发布版本：
 
 ```powershell
 .\scripts\release.ps1 -Notes "update rules and mcp servers"
 ```
 
-## Merge Priority
+## 配置合并优先级
 
 `base -> tool -> os -> profile -> local.override`
 
-## Docs
+## 文档
 
-- English design: `docs/superpowers/specs/2026-04-09-codex-config-design.md`
-- Chinese design: `docs/superpowers/specs/2026-04-09-codex-config-design.zh-CN.md`
-- Chinese README: `README.zh-CN.md`
+- 英文设计文档：`docs/superpowers/specs/2026-04-09-codex-config-design.md`
+- 中文设计文档：`docs/superpowers/specs/2026-04-09-codex-config-design.zh-CN.md`
+- 英文 README：`README.en.md`
