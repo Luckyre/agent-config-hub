@@ -11,11 +11,17 @@ param(
 
 $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
 $syncScript = Join-Path $scriptPath 'sync.ps1'
+$doctorScript = Join-Path $scriptPath 'doctor.ps1'
 
 if (!(Test-Path $syncScript)) {
   throw "sync.ps1 not found at $syncScript"
 }
 
+if (!(Test-Path $doctorScript)) {
+  throw "doctor.ps1 not found at $doctorScript"
+}
+
+& $doctorScript -Tool $Tool
 & $syncScript -Tool $Tool -Profile $Profile -TargetVersion $TargetVersion
 
 $toolingTarget = switch ($Tool) {

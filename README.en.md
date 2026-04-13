@@ -32,10 +32,12 @@ Typical use cases:
 ## Current Status
 
 Already implemented:
+- `bootstrap.ps1` runs `doctor.ps1` first so the target machine can be checked before sync starts
 - `sync.ps1` generates a versioned snapshot under `~/.codex-config/live` based on `tool / os / profile`
 - Layered config data is merged with the `base -> tool -> os -> profile -> local.override` priority and rendered into `effective-config.json`
 - Managed `rules`, runtime `skills / commands`, and generated MCP config are applied into `~/.codex` or `~/.claude`
 - `install-tooling.ps1` copies prompt and startup wrapper files from `tooling/` into `~/.codex` or `~/.claude`
+- A real repository-local `mcp/example-server.js` is included, and synced MCP config points to the live snapshot copy under `~/.codex-config/live`
 - `release.ps1` regenerates `manifest.lock.json`, `integration-history.json`, `CHANGELOG`, both READMEs, and the integration catalog
 
 Not fully implemented yet:
@@ -44,9 +46,11 @@ Not fully implemented yet:
 
 Important usage notes:
 - `bootstrap.ps1` is effectively a thin wrapper around `sync.ps1`
+- `bootstrap` now runs `doctor` first and blocks devices that are missing `git`, `node`, or the selected tool CLI
 - `sync.ps1 -TargetVersion <tag>` currently runs `git fetch --tags` and `git checkout <tag>`, so it changes the current repo HEAD
 - `sync` preserves unmanaged content in existing `config.toml` / `mcp.json` / `settings.local.json` files and appends or merges the repo-managed sections on top
 - Plugin files can ship inside the snapshot, but whether the target tool consumes them natively still depends on that tool's plugin model
+- Startup wrappers under `tooling/` now resolve executables from PATH or `CODEX_BIN` / `CLAUDE_BIN` overrides instead of machine-specific absolute paths
 
 ## Quick Start
 
@@ -115,6 +119,7 @@ If you have already initialized once and only want to switch profiles or upgrade
 
 Notes:
 - `sync` first generates a repository snapshot, then applies managed runtime assets into the tool-native directories
+- `sync` rewrites repository-local MCP server paths so they point to the current machine's `~/.codex-config/live/mcp/` snapshot
 - The plugin registry is still mainly a versioned inventory and does not yet drive native plugin installation directly
 
 ### I am a repository maintainer

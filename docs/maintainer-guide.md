@@ -38,3 +38,5 @@
 - `configs/tools/claudex.yaml` 当前映射到本机实际配置根目录 `~/.claude`，而不是 `~/.claudex`。
 - `scripts/install-tooling.ps1`：将仓库中的 tooling 资源安装到本机真实目录；`scripts/sync.ps1` 完成 live 配置更新后会自动调用。
 - `scripts/sync.ps1`：当前还会渲染 `effective-config.json`，并把托管的 `rules`、运行时 `skills / commands` 以及生成的 MCP 配置 apply 到工具真实目录；插件注册表暂未直接驱动原生插件安装。
+- `scripts/doctor.ps1`：当前支持按工具检查关键依赖，`bootstrap.ps1` 会先调用它，再决定是否进入 `sync`。
+- `tooling/*/start-*.ps1`：当前优先从 `PATH` 或 `CODEX_BIN` / `CLAUDE_BIN` 解析 CLI，可随设备迁移，不应再写死某台机器的绝对路径。

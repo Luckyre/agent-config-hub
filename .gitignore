@@ -15,3 +15,5 @@ Thumbs.db
 tests/release/fixtures/
 tests/release/tmp-restore/
 tests/sync/tmp/
+tests/doctor/tmp-doctor/
+tests/tooling/tmp-wrapper/

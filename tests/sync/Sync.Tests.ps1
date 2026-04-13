@@ -82,6 +82,11 @@ function Invoke-SyncTestRun {
   if ($process.ExitCode -ne 0) {
     throw "sync.ps1 failed for tool=$Tool profile=$Profile`nSTDOUT:`n$stdout`nSTDERR:`n$stderr"
   }
+
+  return [pscustomobject]@{
+    stdout = $stdout
+    stderr = $stderr
+  }
 }
 
 New-Item -ItemType Directory -Path $tempRoot, $backupRoot -Force | Out-Null
@@ -135,7 +140,7 @@ trust_level = "trusted"
 }
 '@ | Set-Content -Encoding UTF8 (Join-Path $tempHome '.claude\settings.local.json')
 
-  Invoke-SyncTestRun -Tool codex -Profile company
+  $codexRun = Invoke-SyncTestRun -Tool codex -Profile company
 
   $codexEffectivePath = Join-Path $repoRoot 'generated\codex\windows\company\effective-config.json'
   $codexEffective = Get-Content -LiteralPath $codexEffectivePath -Raw | ConvertFrom-Json
@@ -173,8 +178,18 @@ trust_level = "trusted"
   if (-not (Select-String -Path $codexConfigPath -Pattern '\[mcp_servers\.example-local\]' -Quiet)) {
     throw 'Expected rendered Codex config.toml to include managed MCP server entries.'
   }
+  $expectedCodexMcpPath = [regex]::Escape((Join-Path $tempHome '.codex-config\live\mcp\example-server.js').Replace('\', '\\'))
+  if (-not (Select-String -Path $codexConfigPath -Pattern $expectedCodexMcpPath -Quiet)) {
+    throw 'Expected Codex MCP config to point to the synced live snapshot path.'
+  }
+  if ($codexRun.stdout -notmatch 'Manual steps remaining') {
+    throw 'Expected sync output to include a manual follow-up summary.'
+  }
+  if ($codexRun.stdout -notmatch 'plugin installation is not automated yet') {
+    throw 'Expected sync output to explain that plugins are not auto-installed yet.'
+  }
 
-  Invoke-SyncTestRun -Tool claudex -Profile home
+  $claudeRun = Invoke-SyncTestRun -Tool claudex -Profile home
 
   $claudeEffectivePath = Join-Path $repoRoot 'generated\claudex\windows\home\effective-config.json'
   $claudeEffective = Get-Content -LiteralPath $claudeEffectivePath -Raw | ConvertFrom-Json
@@ -200,12 +215,18 @@ trust_level = "trusted"
   if (-not (Select-String -Path $claudeMcpPath -Pattern '"example-local"' -Quiet)) {
     throw 'Expected rendered Claude mcp.json to include managed MCP server entries.'
   }
+  if (-not (Select-String -Path $claudeMcpPath -Pattern ([regex]::Escape((Join-Path $tempHome '.codex-config\live\mcp\example-server.js').Replace('\', '\\'))) -Quiet)) {
+    throw 'Expected Claude MCP config to point to the synced live snapshot path.'
+  }
   if (-not (Select-String -Path $claudeMcpPath -Pattern '"existing-server"' -Quiet)) {
     throw 'Expected sync to preserve existing Claude MCP entries while adding managed ones.'
   }
   $claudeSettingsPath = Join-Path $tempHome '.claude\settings.local.json'
   if (-not (Select-String -Path $claudeSettingsPath -Pattern 'example.com' -Quiet)) {
     throw 'Expected sync to preserve existing Claude settings.local.json permissions.'
+  }
+  if ($claudeRun.stdout -notmatch 'Manual steps remaining') {
+    throw 'Expected Claude sync output to include a manual follow-up summary.'
   }
 }
 finally {

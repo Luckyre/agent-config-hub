@@ -32,10 +32,12 @@
 ## 当前状态
 
 当前已经实现：
+- `bootstrap.ps1` 会先执行 `doctor.ps1`，检查当前设备是否具备同步所需的关键依赖
 - 通过 `sync.ps1` 按 `tool / os / profile` 生成版本化快照到 `~/.codex-config/live`
 - 按 `base -> tool -> os -> profile -> local.override` 合并层级配置，并输出 `effective-config.json`
 - 将托管的 `rules`、运行时 `skills / commands` 以及生成的 MCP 配置 apply 到 `~/.codex` 或 `~/.claude`
 - 通过 `install-tooling.ps1` 把 `tooling/` 下的 prompt 和启动脚本复制到 `~/.codex` 或 `~/.claude`
+- 内置了仓库本地的 `mcp/example-server.js`，同步后的 MCP 配置会指向 `~/.codex-config/live` 中的真实文件
 - 通过 `release.ps1` 生成 `manifest.lock.json`、`integration-history.json`、`CHANGELOG`、双语 `README` 和集成目录
 
 当前尚未完全实现：
@@ -44,9 +46,11 @@
 
 使用上需要注意：
 - `bootstrap.ps1` 本质上只是对 `sync.ps1` 的薄包装
+- `bootstrap` 现在会先执行 `doctor`，阻断缺少 `git`、`node` 或目标工具 CLI 的设备
 - `sync.ps1 -TargetVersion <tag>` 当前会执行 `git fetch --tags` 和 `git checkout <tag>`，会改动当前仓库 HEAD
 - `sync` 当前会保留用户已有的 `config.toml` / `mcp.json` / `settings.local.json` 非托管内容，并在其上追加或合并仓库托管配置
 - 插件目录虽然会随快照发布，但是否被目标工具原生消费，当前仍取决于各工具自身插件机制
+- `tooling` 下的启动脚本已改为优先使用 `PATH` 或 `CODEX_BIN` / `CLAUDE_BIN`，不再依赖当前机器的硬编码绝对路径
 
 ## 快速开始
 
@@ -115,6 +119,7 @@ cd agent-config-hub
 
 说明：
 - 当前 `sync` 会先产出仓库快照，再把托管运行时资源 apply 到工具原生目录
+- 当前 `sync` 会把仓库内 MCP 示例服务改写为指向本机 `~/.codex-config/live/mcp/` 的绝对路径，避免同步后配置指向失效
 - 插件注册表目前仍主要用于版本化清单管理，尚未直接驱动目标工具完成插件安装
 
 ### 我是仓库维护者

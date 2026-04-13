@@ -422,6 +422,28 @@ function ConvertTo-TomlString {
   return '"' + $Value.Replace('\', '\\').Replace('"', '\"') + '"'
 }
 
+function Resolve-McpRuntimeArgs {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string[]]$Args,
+    [Parameter(Mandatory = $true)]
+    [string]$LiveRoot
+  )
+
+  $resolved = @()
+  foreach ($arg in $Args) {
+    if ($arg.StartsWith('./') -or $arg.StartsWith('.\')) {
+      $relativePath = $arg.Substring(2).Replace('/', '\')
+      $resolved += [System.IO.Path]::GetFullPath((Join-Path $LiveRoot $relativePath))
+      continue
+    }
+
+    $resolved += $arg
+  }
+
+  return $resolved
+}
+
 function New-CodexManagedTomlBlock {
   param(
     [Parameter(Mandatory = $true)]
@@ -431,7 +453,9 @@ function New-CodexManagedTomlBlock {
     [Parameter(Mandatory = $true)]
     [string]$Profile,
     [Parameter(Mandatory = $true)]
-    [string]$Version
+    [string]$Version,
+    [Parameter(Mandatory = $true)]
+    [string]$LiveRoot
   )
 
   $lines = @(
@@ -445,7 +469,7 @@ function New-CodexManagedTomlBlock {
     $lines += "type = $(ConvertTo-TomlString -Value $server.transport)"
     $lines += "command = $(ConvertTo-TomlString -Value $server.command)"
     $argValues = @()
-    foreach ($arg in @($server.args)) {
+    foreach ($arg in @(Resolve-McpRuntimeArgs -Args @($server.args) -LiveRoot $LiveRoot)) {
       $argValues += (ConvertTo-TomlString -Value $arg)
     }
     $lines += "args = [$($argValues -join ', ')]"
@@ -466,7 +490,9 @@ function Write-CodexManagedConfig {
     [Parameter(Mandatory = $true)]
     [string]$Profile,
     [Parameter(Mandatory = $true)]
-    [string]$Version
+    [string]$Version,
+    [Parameter(Mandatory = $true)]
+    [string]$LiveRoot
   )
 
   $existing = ''
@@ -474,7 +500,7 @@ function Write-CodexManagedConfig {
     $existing = Get-Content -LiteralPath $Path -Raw -Encoding UTF8
   }
 
-  $managedBlock = New-CodexManagedTomlBlock -McpServers $McpServers -Tool $Tool -Profile $Profile -Version $Version
+  $managedBlock = New-CodexManagedTomlBlock -McpServers $McpServers -Tool $Tool -Profile $Profile -Version $Version -LiveRoot $LiveRoot
   $pattern = '(?ms)\r?\n?# BEGIN MANAGED BY agent-config-hub.*?# END MANAGED BY agent-config-hub\r?\n?'
   $unmanaged = [regex]::Replace($existing, $pattern, '')
   $unmanaged = $unmanaged.TrimEnd()
@@ -497,7 +523,9 @@ function Write-ClaudeManagedMcp {
     [Parameter(Mandatory = $true)]
     [string]$Path,
     [Parameter(Mandatory = $true)]
-    [object[]]$McpServers
+    [object[]]$McpServers,
+    [Parameter(Mandatory = $true)]
+    [string]$LiveRoot
   )
 
   $existing = Read-JsonData -Path $Path
@@ -512,7 +540,7 @@ function Write-ClaudeManagedMcp {
   foreach ($server in $McpServers) {
     $existing['mcpServers'][$server.name] = [ordered]@{
       command = $server.command
-      args = @($server.args)
+      args = @(Resolve-McpRuntimeArgs -Args @($server.args) -LiveRoot $LiveRoot)
       env = [ordered]@{}
     }
   }
@@ -530,7 +558,9 @@ function Apply-ManagedToolAssets {
     [Parameter(Mandatory = $true)]
     [string]$Version,
     [Parameter(Mandatory = $true)]
-    [string]$Profile
+    [string]$Profile,
+    [Parameter(Mandatory = $true)]
+    [string]$LiveRoot
   )
 
   Ensure-Directory -Path $TargetRoot
@@ -561,10 +591,10 @@ function Apply-ManagedToolAssets {
   $mcpServers = @(Get-McpServersDetailed -Path (Join-Path $repoRoot 'mcp/servers.yaml'))
   switch ($Tool) {
     'codex' {
-      Write-CodexManagedConfig -Path (Join-Path $TargetRoot 'config.toml') -McpServers $mcpServers -Tool $Tool -Profile $Profile -Version $Version
+      Write-CodexManagedConfig -Path (Join-Path $TargetRoot 'config.toml') -McpServers $mcpServers -Tool $Tool -Profile $Profile -Version $Version -LiveRoot $LiveRoot
     }
     'claudex' {
-      Write-ClaudeManagedMcp -Path (Join-Path $TargetRoot 'mcp.json') -McpServers $mcpServers
+      Write-ClaudeManagedMcp -Path (Join-Path $TargetRoot 'mcp.json') -McpServers $mcpServers -LiveRoot $LiveRoot
     }
   }
 }
@@ -729,9 +759,14 @@ try {
   $state | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 $stateFile
 
   & $installToolingScript -Tool $Tool -SourceRoot (Join-Path $renderDir 'tooling') | Out-Null
-  Apply-ManagedToolAssets -Tool $Tool -TargetRoot $toolRoot -Version $gitVersion -Profile $Profile
+  Apply-ManagedToolAssets -Tool $Tool -TargetRoot $toolRoot -Version $gitVersion -Profile $Profile -LiveRoot $liveRoot
 
   Write-Output "Sync succeeded: tool=$Tool os=$osName profile=$Profile version=$gitVersion"
+  Write-Output 'Automated steps completed:'
+  Write-Output "- Rendered live snapshot: $liveRoot"
+  Write-Output "- Applied managed runtime config into: $toolRoot"
+  Write-Output 'Manual steps remaining:'
+  Write-Output '- Plugins registry synced, but plugin installation is not automated yet.'
 }
 catch {
   if ($backupPath -and (Test-Path $backupPath)) {
