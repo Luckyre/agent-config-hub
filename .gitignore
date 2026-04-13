@@ -10,3 +10,8 @@ secrets.env
 # editor/system
 .DS_Store
 Thumbs.db
+
+# test artifacts
+tests/release/fixtures/
+tests/release/tmp-restore/
+tests/sync/tmp/
