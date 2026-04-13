@@ -37,3 +37,4 @@
 - `tooling/claudex/start-claude.ps1`：启动 `claude.exe` 时通过 `--append-system-prompt` 注入全局 style prompt 的包装脚本模板。
 - `configs/tools/claudex.yaml` 当前映射到本机实际配置根目录 `~/.claude`，而不是 `~/.claudex`。
 - `scripts/install-tooling.ps1`：将仓库中的 tooling 资源安装到本机真实目录；`scripts/sync.ps1` 完成 live 配置更新后会自动调用。
+- `scripts/sync.ps1`：当前还会渲染 `effective-config.json`，并把托管的 `rules`、运行时 `skills / commands` 以及生成的 MCP 配置 apply 到工具真实目录；插件注册表暂未直接驱动原生插件安装。

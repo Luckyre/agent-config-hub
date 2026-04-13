@@ -33,18 +33,20 @@ Typical use cases:
 
 Already implemented:
 - `sync.ps1` generates a versioned snapshot under `~/.codex-config/live` based on `tool / os / profile`
+- Layered config data is merged with the `base -> tool -> os -> profile -> local.override` priority and rendered into `effective-config.json`
+- Managed `rules`, runtime `skills / commands`, and generated MCP config are applied into `~/.codex` or `~/.claude`
 - `install-tooling.ps1` copies prompt and startup wrapper files from `tooling/` into `~/.codex` or `~/.claude`
 - `release.ps1` regenerates `manifest.lock.json`, `integration-history.json`, `CHANGELOG`, both READMEs, and the integration catalog
 
 Not fully implemented yet:
-- Real YAML merging for `base -> tool -> os -> profile`
-- Direct apply of `rules / mcp / plugins / skills` into tool-native live config directories
-- End-to-end automated coverage for the full `bootstrap / sync / apply` path
+- Final plugin installation / enablement through each tool's native plugin system is still not wired up; `plugins/registry.yaml` remains primarily an inventory and release-tracking source
+- End-to-end automated coverage for the full `bootstrap / sync / release` path is still incomplete
 
 Important usage notes:
 - `bootstrap.ps1` is effectively a thin wrapper around `sync.ps1`
 - `sync.ps1 -TargetVersion <tag>` currently runs `git fetch --tags` and `git checkout <tag>`, so it changes the current repo HEAD
-- "Installed to `~/.codex` / `~/.claude`" currently refers mainly to tooling assets, not the full config snapshot
+- `sync` preserves unmanaged content in existing `config.toml` / `mcp.json` / `settings.local.json` files and appends or merges the repo-managed sections on top
+- Plugin files can ship inside the snapshot, but whether the target tool consumes them natively still depends on that tool's plugin model
 
 ## Quick Start
 
@@ -79,6 +81,7 @@ Sync to the current stable version:
 Sync result:
 - The generated snapshot is written to `~/.codex-config/live`
 - Codex-specific prompt and startup wrapper files are installed to `~/.codex`
+- Managed `rules` / `skills` and MCP config are also applied into `~/.codex`
 
 #### Claudex users
 
@@ -97,6 +100,7 @@ Sync to the current stable version:
 Sync result:
 - The generated snapshot is written to `~/.codex-config/live`
 - Claudex-specific prompt and startup wrapper files are installed to `~/.claude`
+- Managed `skills` / `commands`, MCP config, and repo-tracked `settings.local.json` are also applied into `~/.claude`
 
 #### How to choose a profile
 
@@ -110,8 +114,8 @@ If you have already initialized once and only want to switch profiles or upgrade
 ```
 
 Notes:
-- `sync` does not yet merge and apply `rules / mcp / plugins / skills` directly into the tool-native runtime directories
-- It currently generates a repository snapshot first, then installs the startup-related files from `tooling/`
+- `sync` first generates a repository snapshot, then applies managed runtime assets into the tool-native directories
+- The plugin registry is still mainly a versioned inventory and does not yet drive native plugin installation directly
 
 ### I am a repository maintainer
 
@@ -137,7 +141,7 @@ If you maintain this repo and need to publish a new version after config changes
 
 Notes:
 - This is the intended repository-level layering model
-- The current scripts preserve these layers and metadata, but do not yet perform the final merged render
+- The current scripts now render a merged effective config and keep the source layer files for traceability
 
 ## Integration Inventory
 

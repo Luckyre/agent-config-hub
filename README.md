@@ -33,18 +33,20 @@
 
 当前已经实现：
 - 通过 `sync.ps1` 按 `tool / os / profile` 生成版本化快照到 `~/.codex-config/live`
+- 按 `base -> tool -> os -> profile -> local.override` 合并层级配置，并输出 `effective-config.json`
+- 将托管的 `rules`、运行时 `skills / commands` 以及生成的 MCP 配置 apply 到 `~/.codex` 或 `~/.claude`
 - 通过 `install-tooling.ps1` 把 `tooling/` 下的 prompt 和启动脚本复制到 `~/.codex` 或 `~/.claude`
 - 通过 `release.ps1` 生成 `manifest.lock.json`、`integration-history.json`、`CHANGELOG`、双语 `README` 和集成目录
 
 当前尚未完全实现：
-- `base -> tool -> os -> profile` 的真实 YAML 合并与最终 effective config 渲染
-- 将 `rules / mcp / plugins / skills` 直接 apply 到工具原生 live 目录
-- 完整覆盖 `bootstrap / sync / apply` 落地链路的自动化测试
+- 原生插件系统的最终安装 / 启用仍未打通，`plugins/registry.yaml` 目前仍主要承担清单与发布跟踪作用
+- 完整覆盖 `bootstrap / sync / release` 全链路的自动化测试仍未补齐
 
 使用上需要注意：
 - `bootstrap.ps1` 本质上只是对 `sync.ps1` 的薄包装
 - `sync.ps1 -TargetVersion <tag>` 当前会执行 `git fetch --tags` 和 `git checkout <tag>`，会改动当前仓库 HEAD
-- `README` 中提到的“安装到 `~/.codex` / `~/.claude`”当前主要指 tooling 资源，不是完整配置快照的最终落点
+- `sync` 当前会保留用户已有的 `config.toml` / `mcp.json` / `settings.local.json` 非托管内容，并在其上追加或合并仓库托管配置
+- 插件目录虽然会随快照发布，但是否被目标工具原生消费，当前仍取决于各工具自身插件机制
 
 ## 快速开始
 
@@ -79,6 +81,7 @@ cd agent-config-hub
 同步结果：
 - 快照会生成到 `~/.codex-config/live`
 - `codex` 专用 prompt / 启动脚本会安装到 `~/.codex`
+- `rules` / `skills` 和托管 MCP 配置会同步到 `~/.codex`
 
 #### Claudex 用户
 
@@ -97,6 +100,7 @@ cd agent-config-hub
 同步结果：
 - 快照会生成到 `~/.codex-config/live`
 - `claudex` 专用 prompt / 启动脚本会安装到 `~/.claude`
+- `skills` / `commands`、托管 MCP 配置以及仓库内 `settings.local.json` 会同步到 `~/.claude`
 
 #### Profile 怎么选
 
@@ -110,8 +114,8 @@ cd agent-config-hub
 ```
 
 说明：
-- 当前 `sync` 不会把 `rules / mcp / plugins / skills` 直接合并后写入工具原生目录
-- 它会先产出仓库快照，再安装 `tooling/` 中与工具启动相关的文件
+- 当前 `sync` 会先产出仓库快照，再把托管运行时资源 apply 到工具原生目录
+- 插件注册表目前仍主要用于版本化清单管理，尚未直接驱动目标工具完成插件安装
 
 ### 我是仓库维护者
 
